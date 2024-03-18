@@ -33,22 +33,7 @@
 
         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
      
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0 flex flex-wrap">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold " for="grid-first-name">
-          Classe
-        </label>
-         
-         
-        <label for="countries" class="block  text-sm font-medium text-gray-900 dark:text-black"></label>
-        <select v-model="classs"   placeholder="Choisir une classe"   id="countries" class="appearance-none block w-full h-12 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-          
-            <option  v-for="cls in classe" :key="cls.Id_classe" :value="cls.Id_classe" >{{ cls.nomclass}}</option>
-        
-        
-        </select>
-
-        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
-      </div>
+      
       
       
       
@@ -104,16 +89,16 @@
   </template>
 
 <script setup>
-  const classes= await $fetch("/api/classe")
-  const classe = classes.data;
+  
+  
   import { useRoute } from 'vue-router';
   const router = useRoute()
-  const {data:enfants} = await $fetch(`/api/inscript/${router.params.id}`)
-  const enfant=enfants;
-  let nomI = enfant.nomenfant;
-  let prenomI = enfant.prenomenfant;
-  let id= enfant.Id_Enfant
-  const classename=classe.nomclass
+  const {data:inscriptions} = await $fetch(`/api/pay/${router.params.id}`)
+  const inscription=inscriptions;
+  let nomI = inscription.nomenfant;
+  let prenomI = inscription.prenomenfant;
+  let id= inscription.Id_Incription
+  //const classename=classe.nomclass
   
 
   //const nomI = ref('');
@@ -124,80 +109,30 @@
   //const idI =ref('');
   //const prenomI=ref('')
   
-  async function SendInscription() {
-    const response = await $fetch('/api/inscription', {
-        method: 'POST',
-        body: {
+//   async function SendInscription() {
+//     const response = await $fetch('/api/inscription', {
+//         method: 'POST',
+//         body: {
             
-            nomenfant: nomI,
-            prenomenfant: prenomI,
-            
-            Id_classe:classs.value,
-            Id_Enfant:id,
-            dateinscription:dateI.value,
-            classe:classename,
-            
-
-
-        },
-
-    })
-    
-    // router.push({ path: "/professeur" })
-
-
-}
-
-// async function SendInscription() {
-//     const response = await fetch('/api/inscription', {
-//         method: "POST",
-//         body:{
-//           data:{
 //             nomenfant: nomI,
 //             prenomenfant: prenomI,
-//             //classe: classs.value,
-//             //dateinscription:date.value
+            
+//             Id_classe:classs.value,
 //             Id_Enfant:id,
-//           }
+//             dateinscription:dateI.value,
+//             classe:classename,
+            
 
 
-//         }
+//         },
 
 //     })
-//     if(response){
-//       alert("ok")
-//     }
+    
 //     // router.push({ path: "/professeur" })
 
 
 // }
-// const submitForm = async () => {
-//   try {
-//     await fetch('/api/inscription', {
-//       method: "POST",
-//       body: {
-//         data: {
-//           nomenfant: "Konan",
-//             prenomenfant: 'Fabrice',
-//             //classe: 'classs.value',
-//             Id_classe:1,
-//             //dateinscription:date.value
-//             Id_Enfant:1,
-//         }
-//       }
-//     });
 
-
-//     console.log("Message envoyé avec succès");
-//     nomI.value = '';
-//     prenomI.value = '';
-//     //message.value = '';
-//     // Gérer la réponse de succès ici (redirection, message de confirmation, etc.)
-//   } catch (error) {
-//     console.error(error);
-//     // Gérer l'erreur ici (afficher un message d'erreur, par exemple)
-//   }
-// };
 
 
 
