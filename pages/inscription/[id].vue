@@ -148,56 +148,6 @@
 
 }
 
-// async function SendInscription() {
-//     const response = await fetch('/api/inscription', {
-//         method: "POST",
-//         body:{
-//           data:{
-//             nomenfant: nomI,
-//             prenomenfant: prenomI,
-//             //classe: classs.value,
-//             //dateinscription:date.value
-//             Id_Enfant:id,
-//           }
-
-
-//         }
-
-//     })
-//     if(response){
-//       alert("ok")
-//     }
-//     // router.push({ path: "/professeur" })
-
-
-// }
-// const submitForm = async () => {
-//   try {
-//     await fetch('/api/inscription', {
-//       method: "POST",
-//       body: {
-//         data: {
-//           nomenfant: "Konan",
-//             prenomenfant: 'Fabrice',
-//             //classe: 'classs.value',
-//             Id_classe:1,
-//             //dateinscription:date.value
-//             Id_Enfant:1,
-//         }
-//       }
-//     });
-
-
-//     console.log("Message envoyé avec succès");
-//     nomI.value = '';
-//     prenomI.value = '';
-//     //message.value = '';
-//     // Gérer la réponse de succès ici (redirection, message de confirmation, etc.)
-//   } catch (error) {
-//     console.error(error);
-//     // Gérer l'erreur ici (afficher un message d'erreur, par exemple)
-//   }
-// };
 
 
 

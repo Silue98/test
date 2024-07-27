@@ -1,3 +1,5 @@
+
+
 <template>
     <div class="relative flex flex-col justify-center min-h-screen overflow-hidden">
     <div
@@ -18,10 +20,9 @@
                 </div>
                 <a href="#" class="text-xs text-gray-600 hover:underline">Forget Password?</a>
                 <div class="mt-6">
-                    <button
-                        class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-yellow-400 rounded-md hover:bg-yellow-300 focus:outline-none focus:bg-purple-600">
+                    <NuxtLink to="DashboardStatistique" class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-yellow-400 rounded-md hover:bg-yellow-300 focus:outline-none focus:bg-purple-600">
                         Login
-                    </button>
+                    </NuxtLink>
                 </div>
             </div>
         </form>

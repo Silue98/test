@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client"
+import payementPost from "./payement.post"
 export default defineEventHandler(async (event) => {
     const {
         nomenfant,prenomenfant,Id_classe,Id_Enfant,dateinscription,classe
@@ -13,6 +14,7 @@ export default defineEventHandler(async (event) => {
           Id_classe:Id_classe,
           dateinscription:dateinscription,
           classe:classe
+         // totatpayement://<<Fabrice has commented this line 08_07_24
       }
         // data:{
           

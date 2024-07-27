@@ -8,4 +8,8 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  modules: [
+    '@i2d/nuxt-pdf-frame',
+    '@sidebase/nuxt-pdf'
+  ]
 })
