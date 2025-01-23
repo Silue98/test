@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@i2d/nuxt-pdf-frame": "^0.3.0",
-    "@prisma/client": "^5.9.1"
+    "@prisma/client": "^5.9.1",
+    "flowbite": "^2.5.2"
   }
 }

@@ -81,3 +81,28 @@
 </form>
 </section>
 </template>
+<script lang="ts" setup>
+const Enfant = await  $fetch('/api/niveau')
+const niveaux = niveau.data
+
+const libcl = ref('');
+const idniveau = ref('');
+const router = useRouter()
+
+async function SendClasse() {
+    const response = await fetch('/api/classe', {
+        method: "POST",
+        body: JSON.stringify({
+            libcl: libcl.value,
+            idniveau: idniveau.value,
+
+        }),
+
+    })
+    router.push({ path: "/classe" })
+
+
+}
+
+
+</script>
