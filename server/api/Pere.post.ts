@@ -10,10 +10,9 @@ export default defineEventHandler(async (event) => {
         numerotelephone,
         religionpere,
         eglisepere,
-     
 }= await readBody(event)
     const prisma = new PrismaClient()
-    const professeur = await prisma.pere.create({
+    const pere = await prisma.pere.create({
    
         data:{
         Id_Pere,
@@ -35,5 +34,5 @@ export default defineEventHandler(async (event) => {
 
 
     
-  return { data: professeur }
+  return { data: pere }
 })
