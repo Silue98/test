@@ -75,8 +75,6 @@
   </template>
 
 <script setup>
-  
-  
   import { useRoute } from 'vue-router';
   const router = useRoute()
   const {data:inscriptions} = await $fetch(`/api/pay/${router.params.id}`)
@@ -110,9 +108,6 @@
 
 
 }
-
-
-
 
 </script>
   
