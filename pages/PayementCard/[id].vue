@@ -61,7 +61,7 @@
     
     
     <div class="flex flex-wrap space-x-10">
-      <NuxtLink to="/mere" class="bg-yellow-500 hover:bg-blue-600 text-white font-bold py-2 px-4 border boedr-700 rounded">
+      <NuxtLink to="/ListInscrit" class="bg-yellow-500 hover:bg-blue-600 text-white font-bold py-2 px-4 border boedr-700 rounded">
       Annuler
       </NuxtLink>
       <button type="submit"   class="bg-green-500 hover:bg-blue-600 text-white font-bold py-2 px-4 border boedr-700 rounded">
@@ -104,7 +104,7 @@
 
     })
     
-    // router.push({ path: "/professeur" })
+    router.push({ path: "/ListInscritPaiement" })
 
 
 }

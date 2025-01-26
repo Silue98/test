@@ -75,6 +75,9 @@
   </div> 
 </section>
 <div class="flex justify-center items-center top-32">
+  <NuxtLink to="/ListInscritPaiement" class="bg-yellow-500 hover:bg-blue-600 text-white font-bold py-2 px-4 border boedr-700 rounded">
+      Annuler
+      </NuxtLink>
   <button class="" @click="exportToPDF('my-pdf-file.pdf', pdfSection)">
       IMPRIMER
     </button>

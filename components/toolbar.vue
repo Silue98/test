@@ -7,10 +7,10 @@ import type { NuxtLink } from '#build/components';
         
 <nav class="bg-white border-gray-200 dark:bg-yellow-500">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-  <a href="#" class="flex items-center">
+  <NuxtLink to="/DashboardStatistique" class="flex items-center">
       <!-- <img src="/logo.jpg" class="h-8 mr-3" alt="Flowbite Logo" /> -->
       <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ED DOKUI</span>
-  </a>
+  </NuxtLink>
   <div class="flex md:order-2">
     <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" class="md:hidden text-g dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-g rounded-lg text-sm p-2.5 mr-1" >
       <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">

@@ -95,14 +95,14 @@
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
           Date de naissance
         </label>
-         <input v-model="datenaissance" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="date" placeholder="******************">
+         <input v-model="datenaissance" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="date" placeholder="01-01-1900">
         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
       </div>
       <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0 flex flex-wrap">
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
           Lieu de naissance
         </label>
-         <input v-model="lieunaissanceenfant" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************fabio">
+         <input v-model="lieunaissanceenfant" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Tonton Alpha">
         <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
       </div>
       <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0 flex flex-wrap">
@@ -112,7 +112,7 @@
         <label for="countries" class="block  text-sm font-medium text-gray-900 dark:text-black"></label>
         <select v-model="club" id="countries" class="appearance-none block w-full h-12 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
         <option selected>Choisir un groupe</option>
-        <option value="US">M</option>
+        <option >M</option>
         <option value="CA">F</option>
   
          </select>
