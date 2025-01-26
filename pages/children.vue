@@ -156,7 +156,7 @@
          
         <label for="countries" class="block  text-sm font-medium text-gray-900 dark:text-black"></label>
         <select v-model="Id_Pere" id="countries" class="appearance-none block w-full h-12 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-          <option v-for="p in pere" :key="p.Id_Pere" :value="p.Id_Pere">{{p.Id_Pere}} </option>
+          <option v-for="p in pere" :key="p.Id_Pere" :value="p.Id_Pere">{{p.Id_Pere}}{{ p.Id_Pere }}</option>
           <!-- <option v-for="(Id_Pere,pere.Id_Pere) in peres" >{{pere.Id_Pere}};{{ pere.Id_Pere }}</option> -->
         </select>
 
@@ -170,8 +170,8 @@
          
          
         <label for="countries" class="block  text-sm font-medium text-gray-900 dark:text-black"></label>
-        <select v-model="Id_Pere" id="countries" class="appearance-none block w-full h-12 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-        <!-- <option v-for="pere in peres" :key="pere.Id_Pere" :value="pere.Id_Pere ">{{pere.Id_Pere}} {{ PE }}</option> -->
+        <select v-model="Id_Mere" id="countries" class="appearance-none block w-full h-12 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+        <option v-for="mer in mere" :key="mer.Id_Mere" :value="mer.Id_Mere ">{{mer.Id_Mere}}{{ mer.nommere }} </option>
         
         
         </select>
@@ -217,6 +217,8 @@
 <script lang="ts" setup>
 const peres = await $fetch('/api/Pere');
 const pere = peres.data;
+const meres=await $fetch('/api/Mere')
+const mere=meres.data;
 const Id_Enfant = ref('');
 const nomenfant=ref('');
 const prenomenfant = ref('');
