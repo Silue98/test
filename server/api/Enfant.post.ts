@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 export default defineEventHandler(async (event) => {
     const {
-        Id_Enfant,
+         Id_Enfant,
         nomenfant, 
       prenomenfant,
       genre,
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
       Id_Pere
 }= await readBody(event)
     const prisma = new PrismaClient()
-    const professeur = await prisma.enfant.create({
+    const enfant = await prisma.enfant.create({
    
         data:{
           Id_Enfant, 
@@ -45,8 +45,8 @@ export default defineEventHandler(async (event) => {
     //const users = await prisma.Admin.findMany();
   
     //return { data: users }
-
+    console.log("Père créé avec succès:", enfant);
 
     
-  return { data: professeur }
+  return { data: enfant }
 })

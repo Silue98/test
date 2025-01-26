@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
      
 }= await readBody(event)
     const prisma = new PrismaClient()
-    const professeur = await prisma.mere.create({
+    const mere = await prisma.mere.create({
    
         data:{
         Id_Mere,
@@ -30,10 +30,11 @@ export default defineEventHandler(async (event) => {
       })
      
     //const users = await prisma.Admin.findMany();
-  
-    //return { data: users }
+  //console.log(`Un nouveau père a été ajouté avec l'ID : ${pere.Id_Pere}`);
+  // console.log("Père créé avec succès:", mere);
+    return { data: mere}
 
 
     
-  return { data: professeur }
+  // return { data: mere }
 })
