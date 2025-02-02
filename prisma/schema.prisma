@@ -41,6 +41,7 @@ model enfant {
   pere_mere           String?   @db.VarChar(50)
   Id_Mere             Int
   Id_Pere             Int
+  presences          presence[]
 
   @@index([Id_Mere], map: "Id_Mere")
   @@index([Id_Pere], map: "Id_Pere")
@@ -104,15 +105,31 @@ model pere {
   religionpere    String? @db.VarChar(50)
   eglisepere      String? @db.VarChar(50)
 }
-
-
-
+//<<Fabrice Modèle 31_01__25
 model presence {
-  Id_Incription      Int @default(autoincrement())
-  Id_absencepresence Int
+  Id_Presence Int     @id @default(autoincrement())
+  nomenfant     String? @db.VarChar(50)
+  prenomenfant  String? @db.VarChar(50)
+  classe        String? @db.VarChar(50) 
+  motif      String? @db.VarChar(200)
+  dateappel String? @db.VarChar(50)
+  present String? @db.VarChar(20)
+  absent String? @db.VarChar(20)
+  Id_Enfant     Int     
+  Enfant enfant @relation(fields: [Id_Enfant], references: [Id_Enfant])
+  Id_Incription String? @db.VarChar(50)
 
-  @@id([Id_Incription, Id_absencepresence])
-  @@index([Id_absencepresence], map: "Id_absencepresence")
+  @@index([Id_Incription], map: "Id_Incription")
 }
+
+
+
+// model presence {
+//   Id_Incription      Int @default(autoincrement())
+//   Id_absencepresence Int
+
+//   @@id([Id_Incription, Id_absencepresence])
+//   @@index([Id_absencepresence], map: "Id_absencepresence")
+// }
 
 

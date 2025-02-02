@@ -9,7 +9,7 @@
               <h3 class="font-semibold text-base text-blueGray-700">Enfants inscrits en A1</h3>
             </div>
             <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                <NuxtLink to="Form1" class="bg-green-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">Faire Appel</NuxtLink>
+                <NuxtLink to="AppelA1" class="bg-green-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">Faire Appel</NuxtLink>
               <button class="bg-green-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">See all</button>
             </div>
           </div>
