@@ -10,8 +10,10 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "latest",
+    "@nuxt/devtools": "^2.0.0-beta.4",
     "@sidebase/nuxt-pdf": "^1.0.0-alpha.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.8",
     "autoprefixer": "^10.4.16",
     "nuxt": "^3.8.2",
     "postcss": "^8.4.32",
@@ -23,6 +25,8 @@
   "dependencies": {
     "@i2d/nuxt-pdf-frame": "^0.3.0",
     "@prisma/client": "^5.9.1",
-    "flowbite": "^2.5.2"
+    "bcrypt": "^5.1.1",
+    "flowbite": "^2.5.2",
+    "jsonwebtoken": "^9.0.2"
   }
 }
