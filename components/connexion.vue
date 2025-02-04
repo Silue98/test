@@ -1,3 +1,4 @@
+<!-- pages/login.vue -->
 <template>
     <div class="relative flex flex-col justify-center min-h-screen overflow-hidden">
       <div class="w-full p-6 m-auto bg-white border-t border-yellow-500 rounded shadow-lg shadow-purple-800/50 lg:max-w-md">
@@ -64,5 +65,8 @@
       console.error("Erreur de connexion :", error);
     }
   };
+  
+  // Indique à Nuxt d'utiliser le layout spécifique 'login'
+  
   </script>
   
