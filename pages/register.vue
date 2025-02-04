@@ -66,7 +66,7 @@
       } else {
         success.value = true;
         setTimeout(() => {
-          window.location.href = "/connexion"; // Redirection vers la page de connexion
+          window.location.href = "/"; // Redirection vers la page de connexion
         }, 2000);
       }
     } catch (err) {
