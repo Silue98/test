@@ -73,5 +73,8 @@
       error.value = "Erreur lors de l'inscription.";
     }
   };
+  definePageMeta({
+    layout: 'connexion'
+  });
   </script>
   
