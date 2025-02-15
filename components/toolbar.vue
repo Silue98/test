@@ -36,7 +36,7 @@ import type { NuxtLink } from '#build/components';
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <NuxtLink to="/" class="rounded-md  px-3 py-2 text-sm font-medium text-white" aria-current="page">ECODIM</NuxtLink>
+            <NuxtLink to="/DashboardStatistique" class="rounded-md  px-3 py-2 text-sm font-medium text-white" aria-current="page">ECODIM</NuxtLink>
             <NuxtLink to="/Form1" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300  hover:text-white">Engistrer</NuxtLink>
             <NuxtLink to="/List" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300  hover:text-white">Enfants enregistrés</NuxtLink>
             <NuxtLink to="/ListInscrit" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300  hover:text-white">Enfants inscrits</NuxtLink>
