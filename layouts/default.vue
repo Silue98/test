@@ -4,7 +4,7 @@
     <aside class="w-64 bg-white text-gray-800 shadow-lg border-r border-orange-300">
       <!-- Logo -->
       <div class="mb-8 text-center py-6 bg-orange-500 text-white rounded-b-lg shadow-md">
-        <NuxtLink to="/" class="text-3xl font-extrabold tracking-wide hover:text-orange-200 transition duration-300">
+        <NuxtLink to="/DashboardStatistique" class="text-3xl font-extrabold tracking-wide hover:text-orange-200 transition duration-300">
           ECODIM
         </NuxtLink>
       </div>
@@ -12,7 +12,7 @@
       <!-- Navigation -->
       <nav class="space-y-4 px-4">
         <NuxtLink 
-          to="/dashboard" 
+          to="/DashboardStatistique" 
           class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-orange-100 hover:bg-orange-300 hover:text-white">
           <span>🏠</span>
           <span>Tableau de Bord</span>
