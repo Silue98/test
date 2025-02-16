@@ -21,15 +21,33 @@
           </button>
         </div>
 
-       
+        <!-- Logo ECODIM (au centre de la toolbar) -->
+        
+        <!-- Barre de recherche -->
+        <div class="flex items-center justify-center w-full sm:w-auto">
+          <input
+            type="text"
+            placeholder="Rechercher..."
+            class="w-full sm:w-64 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition duration-300"
+          />
+        </div>
+
+        <!-- Menu de navigation sur écran large -->
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <NuxtLink to="/DashboardStatistique" class="rounded-md  px-3 py-2 text-sm font-medium text-white" aria-current="page">ECODIM</NuxtLink>
-            <NuxtLink to="/Form1" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300  hover:text-white">Engistrer</NuxtLink>
-            <NuxtLink to="/List" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300  hover:text-white">Enfants enregistrés</NuxtLink>
-            <NuxtLink to="/ListInscrit" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300  hover:text-white">Enfants inscrits</NuxtLink>
-            <NuxtLink to="/ListInscritPaiement" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300  hover:text-white">Payements</NuxtLink>
+           
+            <NuxtLink to="/Form1" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition duration-300">
+              Enregistrer
+            </NuxtLink>
+            <NuxtLink to="/List" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition duration-300">
+              Enfants enregistrés
+            </NuxtLink>
+            <NuxtLink to="/ListInscrit" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition duration-300">
+              Enfants inscrits
+            </NuxtLink>
+            <NuxtLink to="/ListInscritPaiement" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition duration-300">
+              Paiements
+            </NuxtLink>
           </div>
         </div>
       </div>
@@ -42,7 +60,7 @@
           Dashboard
         </NuxtLink>
         <NuxtLink to="/Form1" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
-          Engistrer
+          Enregistrer
         </NuxtLink>
         <NuxtLink to="/List" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
           Enfants enregistrés
@@ -51,7 +69,7 @@
           Enfants inscrits
         </NuxtLink>
         <NuxtLink to="/ListInscritPaiement" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
-          Payements
+          Paiements
         </NuxtLink>
       </div>
     </div>
