@@ -16,6 +16,7 @@
           class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-orange-100 hover:bg-orange-300 hover:text-white">
           <span>🏠</span>
           <span>Tableau de Bord</span>
+          <!---->
         </NuxtLink>
 
         <NuxtLink 
