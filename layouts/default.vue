@@ -17,7 +17,6 @@
           <span>🏠</span>
           <span>Tableau de Bord</span>
           <!---->
-          <!---->
         </NuxtLink>
 
         <NuxtLink 
