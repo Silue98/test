@@ -72,7 +72,6 @@ const login = async () => {
     if (data.token) {
       localStorage.setItem("token", data.token);
       alert("Connexion réussie !");
-      // Redirection vers le tableau de bord
       router.push("/DashboardStatistique");
     } else {
       alert(data.error);
