@@ -32,6 +32,7 @@
           />
         </div>
 
+        <!-- Menu de navigation sur écran large -->
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
            
