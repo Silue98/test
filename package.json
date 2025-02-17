@@ -10,12 +10,12 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^2.0.0-beta.4",
-    "@sidebase/nuxt-pdf": "^1.0.0-alpha.0",
+    "@nuxt/devtools": "^1.7.0",
+    "@sidebase/nuxt-pdf": "^0.1.0",
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.8",
     "autoprefixer": "^10.4.16",
-    "nuxt": "^3.8.2",
+    "nuxt": "^3.15.4",
     "postcss": "^8.4.32",
     "prisma": "^5.9.1",
     "tailwindcss": "^3.3.6",
@@ -23,10 +23,19 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@heroicons/vue": "^2.2.0",
     "@i2d/nuxt-pdf-frame": "^0.3.0",
+    "@mui/icons-material": "^6.4.4",
+    "@mui/material": "^6.4.4",
     "@prisma/client": "^5.9.1",
     "bcrypt": "^5.1.1",
+    "dompurify": "^3.2.4",
+    "esbuild": "^0.25.0",
     "flowbite": "^2.5.2",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "jspdf": "^2.5.2",
+    "vite": "^6.1.0"
   }
 }
