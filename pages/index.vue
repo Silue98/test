@@ -18,11 +18,12 @@
             v-model="password"
             class="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40">
           
-          <!-- Icône pour afficher/masquer le mot de passe -->
+          <!-- Icône pour afficher/masquer le mot de pass -->
           <button type="button" @click="togglePassword" class="absolute right-3 top-10 text-gray-500 hover:text-gray-700">
             <EyeIcon v-if="!showPassword" class="w-5 h-5"/>
             <EyeSlashIcon v-else class="w-5 h-5"/>
           </button>
+          
         </div>
 
         <a href="#" class="text-xs text-gray-600 hover:underline">Forget Password?</a>
