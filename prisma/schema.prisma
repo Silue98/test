@@ -45,6 +45,7 @@ model enfant {
 
   @@index([Id_Mere], map: "Id_Mere")
   @@index([Id_Pere], map: "Id_Pere")
+
 }
 
 

@@ -171,6 +171,8 @@ model enfant {
 
   @@index([Id_Mere], map: "Id_Mere")
   @@index([Id_Pere], map: "Id_Pere")
+  @@index([Id_classe], map: "Id_classe")  // Index sur Id_classe
+
 }
 
 model failed_jobs {
