@@ -8,21 +8,18 @@ datasource db {
 }
 
 model absencepresence {
-  Id_absencepresence Int       @id
+  Id_absencepresence Int     @id
   dateappel          String? @db.VarChar(50)
-  statutappel        String?   @db.VarChar(10)
+  statutappel        String? @db.VarChar(10)
 }
-
-
-
 
 model classe {
   Id_classe     Int     @id @default(autoincrement())
   nomclass      String? @db.VarChar(50)
   delclass      String? @db.VarChar(50)
   moniprincipal String? @db.VarChar(50)
+  enfants       enfant[] // Relation avec enfant
 }
-
 
 model enfant {
   Id_Enfant           Int       @id @default(autoincrement())
@@ -33,34 +30,34 @@ model enfant {
   lieuhabitation      String?   @db.VarChar(50)
   numerotelephone     String?   @db.VarChar(50)
   emailenfant         String?   @db.VarChar(50)
-  datenaissance       String? @db.VarChar(50)
+  datenaissance       String?   @db.VarChar(50)
   lieunaissanceenfant String?   @db.VarChar(50)
   club                String?   @db.VarChar(50)
-  dateentreed         String? @db.VarChar(50)
+  dateentreed         String?   @db.VarChar(50)
   orphelinpas         String?   @db.VarChar(50)
   pere_mere           String?   @db.VarChar(50)
   Id_Mere             Int
   Id_Pere             Int
+  Id_classe           Int       // Clé étrangère vers classe
+  classe              classe    @relation(fields: [Id_classe], references: [Id_classe]) // Relation avec classe
   presences          presence[]
 
   @@index([Id_Mere], map: "Id_Mere")
   @@index([Id_Pere], map: "Id_Pere")
-
+  @@index([Id_classe], map: "Id_classe") // Index pour la clé étrangère
 }
 
-
 model incription {
-  Id_Incription Int     @id @default(autoincrement())
-  nomenfant     String? @db.VarChar(50)
-  prenomenfant  String? @db.VarChar(50)
-  classe        String? @db.VarChar(50)
-  Id_classe     Int     
-  Id_Enfant     Int     @unique(map: "Id_Enfant")
-  dateinscription String? @db.VarChar(50)
+  Id_Incription    Int     @id @default(autoincrement())
+  nomenfant        String? @db.VarChar(50)
+  prenomenfant     String? @db.VarChar(50)
+  classe           String? @db.VarChar(50)
+  Id_classe        Int
+  Id_Enfant        Int     @unique(map: "Id_Enfant")
+  dateinscription  String? @db.VarChar(50)
 
   @@index([Id_classe], map: "Id_classe")
 }
-
 
 model mere {
   Id_Mere            Int     @id @default(autoincrement())
@@ -79,9 +76,6 @@ model migrations {
   migration String @db.VarChar(100)
   batch     Int
 }
-
-
-
 
 model payement {
   Id_Payement           Int      @id @default(autoincrement())
@@ -106,38 +100,27 @@ model pere {
   religionpere    String? @db.VarChar(50)
   eglisepere      String? @db.VarChar(50)
 }
-//<<Fabrice Modèle 31_01__25
+
 model presence {
-  Id_Presence Int     @id @default(autoincrement())
+  Id_Presence   Int     @id @default(autoincrement())
   nomenfant     String? @db.VarChar(50)
   prenomenfant  String? @db.VarChar(50)
   classe        String? @db.VarChar(50) 
-  motif      String? @db.VarChar(200)
-  dateappel String? @db.VarChar(50)
-  present String? @db.VarChar(20)
-  absent String? @db.VarChar(20)
+  motif         String? @db.VarChar(200)
+  dateappel     String? @db.VarChar(50)
+  present       String? @db.VarChar(20)
+  absent        String? @db.VarChar(20)
   Id_Enfant     Int     
-  Enfant enfant @relation(fields: [Id_Enfant], references: [Id_Enfant])
+  Enfant        enfant @relation(fields: [Id_Enfant], references: [Id_Enfant])
   Id_Incription String? @db.VarChar(50)
 
   @@index([Id_Incription], map: "Id_Incription")
 }
 
 model Utilisateur {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
-  email     String  @unique
+  email     String   @unique
   password  String
   createdAt DateTime @default(now())
 }
-
-
-// model presence {
-//   Id_Incription      Int @default(autoincrement())
-//   Id_absencepresence Int
-
-//   @@id([Id_Incription, Id_absencepresence])
-//   @@index([Id_absencepresence], map: "Id_absencepresence")
-// }
-
-
