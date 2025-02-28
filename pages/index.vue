@@ -67,7 +67,6 @@ const handleLogin = async () => {
     email: email.value,
     password: password.value,
   };
-//git 
   try {
     await userStore.login(credentials); // Utilisation de l'action login du store
 
