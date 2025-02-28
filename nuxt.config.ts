@@ -12,7 +12,11 @@ export default defineNuxtConfig({
 
   modules: [
     '@i2d/nuxt-pdf-frame',
-    '@sidebase/nuxt-pdf'
+    '@sidebase/nuxt-pdf',
+   '@pinia/nuxt',
+
+    //'@pinia/nuxt',  // Assurez-vous que ce module est ajouté ici
+
   ],
 
   compatibilityDate: '2025-02-01'

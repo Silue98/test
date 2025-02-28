@@ -29,6 +29,7 @@
     "@i2d/nuxt-pdf-frame": "^0.3.0",
     "@mui/icons-material": "^6.4.4",
     "@mui/material": "^6.4.4",
+    "@pinia/nuxt": "^0.10.1",
     "@prisma/client": "^5.9.1",
     "bcrypt": "^5.1.1",
     "dompurify": "^3.2.4",
@@ -36,6 +37,7 @@
     "flowbite": "^2.5.2",
     "jsonwebtoken": "^9.0.2",
     "jspdf": "^2.5.2",
+    "pinia-plugin-persistedstate": "^4.2.0",
     "vite": "^6.1.0"
   }
 }

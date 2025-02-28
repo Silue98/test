@@ -5,25 +5,25 @@
         <img src="/ED.png" alt="Logo">
       </h1>
 
-      <form class="mt-6" @submit.prevent="login">
+      <form class="mt-6" @submit.prevent="handleLogin">
+        <!-- Champ Email -->
         <div>
           <label for="email" class="block text-sm text-gray-800">Email</label>
-          <input v-model="email" type="email"
+          <input v-model="email" type="email" id="email" name="email" autocomplete="email" required
             class="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40">
         </div>
 
+        <!-- Champ Mot de passe -->
         <div class="mt-4 relative">
           <label for="password" class="block text-sm text-gray-800">Password</label>
-          <input :type="showPassword ? 'text' : 'password'"
-            v-model="password"
+          <input :type="showPassword ? 'text' : 'password'" v-model="password" id="password" name="password" autocomplete="current-password" required
             class="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40">
           
           <!-- Icône pour afficher/masquer le mot de passe -->
-          <button type="button" @click="togglePassword" class="absolute right-3 top-10 text-gray-500 hover:text-gray-700">
+          <button type="button" @click.prevent="togglePassword" class="absolute right-3 top-10 text-gray-500 hover:text-gray-700">
             <EyeIcon v-if="!showPassword" class="w-5 h-5"/>
             <EyeSlashIcon v-else class="w-5 h-5"/>
           </button>
-          
         </div>
 
         <a href="#" class="text-xs text-gray-600 hover:underline">Forget Password?</a>
@@ -48,11 +48,13 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/vue/24/outline"; // Import des icônes
+import { useUserStore } from "@/store/user"; // Import du store Pinia
 
 const email = ref("");
 const password = ref("");
 const showPassword = ref(false);
 const router = useRouter();
+const userStore = useUserStore(); // Créer une instance du store
 
 // Fonction pour afficher/masquer le mot de passe
 const togglePassword = () => {
@@ -60,25 +62,23 @@ const togglePassword = () => {
 };
 
 // Fonction de connexion
-const login = async () => {
+const handleLogin = async () => {
+  const credentials = {
+    email: email.value,
+    password: password.value,
+  };
+//git 
   try {
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email.value, password: password.value }),
-    });
+    await userStore.login(credentials); // Utilisation de l'action login du store
 
-    const data = await response.json();
-
-    if (data.token) {
-      localStorage.setItem("token", data.token);
+    if (userStore.userId.value) { // Vérifie si l'utilisateur est bien défini après la connexion
       alert("Connexion réussie !");
-      router.push("/DashboardStatistique");
+      router.push("/DashboardStatistique"); // Redirige vers le tableau de bord
     } else {
-      alert(data.error);
+      alert("Problème de connexion. Veuillez réessayer.");
     }
   } catch (error) {
-    console.error("Erreur de connexion :", error);
+    alert(error.message || "Erreur de connexion");
   }
 };
 
