@@ -49,12 +49,14 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/vue/24/outline"; // Import des icônes
 import { useUserStore } from "@/store/user"; // Import du store Pinia
+import { storeToRefs } from "pinia"; // Ajout de l'import correct pour les références du store
 
 const email = ref("");
 const password = ref("");
 const showPassword = ref(false);
 const router = useRouter();
-const userStore = useUserStore(); // Créer une instance du store
+const userStore = useUserStore(); // Instancier le store
+const { user } = storeToRefs(userStore); // Récupérer la référence de l'utilisateur
 
 // Fonction pour afficher/masquer le mot de passe
 const togglePassword = () => {
@@ -70,7 +72,8 @@ const handleLogin = async () => {
   try {
     await userStore.login(credentials); // Utilisation de l'action login du store
 
-    if (userStore.userId.value) { // Vérifie si l'utilisateur est bien défini après la connexion
+    if (userStore.user) { // Vérifie si l'utilisateur est défini après connexion
+      // console.log("Utilisateur connecté 1:", userStore.user); // Utilise .value pour accéder aux données
       alert("Connexion réussie !");
       router.push("/DashboardStatistique"); // Redirige vers le tableau de bord
     } else {
@@ -86,3 +89,4 @@ definePageMeta({
   layout: 'connexion'
 });
 </script>
+

@@ -106,4 +106,7 @@ function logout() {
   // Rediriger vers la page d'accueil (login)
   router.push('/');  // Redirection vers la page de login (index)
 }
+
+
+
 </script>

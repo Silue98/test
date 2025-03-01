@@ -45,9 +45,19 @@
             <NuxtLink to="/ListInscrit" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition duration-300">
               Enfants inscrits
             </NuxtLink>
-            <NuxtLink to="/ListInscritPaiement" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition duration-300">
-              Paiements
-            </NuxtLink>
+            <NuxtLink to="/ListInscritPaiement" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition duration-300 flex items-center space-x-2">
+  <!-- Icône de profil humain (tête de l'homme) -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c4.418 0 8-2.686 8-6s-3.582-6-8-6-8 2.686-8 6 3.582 6 8 6zM4 20c0-4.418 3.582-8 8-8s8 3.582 8 8H4z" />
+  </svg>
+  <!-- Texte en noir et gras -->
+  <h1 class="font-bold text-black">{{ userStore.user?.name }}</h1>
+</NuxtLink>
+
+
+
+
+
           </div>
         </div>
       </div>
@@ -75,6 +85,16 @@
     </div>
   </nav>
 </template>
-
-<script setup>
-</script>
+<script>
+  import { useUserStore } from "../store/user";
+  
+  export default {
+    setup() {
+      const userStore = useUserStore(); // Correction : appel de la fonction
+  
+      
+  
+      return { userStore };
+    },
+  };
+  </script>

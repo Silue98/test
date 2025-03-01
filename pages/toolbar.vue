@@ -97,3 +97,14 @@ import type { NuxtLink } from '#build/components';
 </nav>
 
 </template>
+<script>
+  import { useUserStore } from "../store/user";
+  export default {
+    setup() {
+      const userStore = useUserStore(); // Correction : appel de la fonction
+  
+      return { userStore, sections };
+    },
+  };
+
+</script>

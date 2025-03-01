@@ -26,5 +26,5 @@ export default defineEventHandler(async (event) => {
   // Générer un token JWT
   const token = jwt.sign({ id: user.id, email: user.email }, "secret_key", { expiresIn: "1h" });
 
-  return { token, user: { id: user.id, name: user.name, email: user.email } };
+  return { token, user: { id: user.id, name: user.name, email: user.email },status:"200" };
 });
