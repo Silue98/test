@@ -14,12 +14,20 @@ model absencepresence {
 }
 
 model classe {
-  Id_classe     Int     @id @default(autoincrement())
-  nomclass      String? @db.VarChar(50)
-  delclass      String? @db.VarChar(50)
-  moniprincipal String? @db.VarChar(50)
-  enfants       enfant[] // Relation avec enfant
+  Id_classe      Int     @id @default(autoincrement()) // Clé primaire
+  nomclass       String? @db.VarChar(50)
+  delclass       String? @db.VarChar(50)
+  moniprincipal  String? @db.VarChar(50)
+
+  utilisateur    Utilisateur? @relation(fields: [utilisateurId], references: [id]) // Relation 1-1
+  utilisateurId  Int?   @unique // Clé étrangère
+
+  enfants        enfant[] // Relation avec enfant
+
+  @@index([utilisateurId], map: "idx_utilisateurId") // Ajout d'un index sur la clé étrangère
 }
+
+
 
 model enfant {
   Id_Enfant           Int       @id @default(autoincrement())
@@ -118,9 +126,11 @@ model presence {
 }
 
 model Utilisateur {
-  id        Int      @id @default(autoincrement())
+  id        Int      @id @default(autoincrement()) // Clé primaire
   name      String
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+
+  classe       classe?  @relation // Relation 1-1 avec `classe`
 }

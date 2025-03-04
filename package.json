@@ -19,6 +19,7 @@
     "postcss": "^8.4.32",
     "prisma": "^5.9.1",
     "tailwindcss": "^3.3.6",
+    "typescript": "^5.8.2",
     "vue": "^3.3.10",
     "vue-router": "^4.2.5"
   },
@@ -31,6 +32,7 @@
     "@mui/material": "^6.4.4",
     "@pinia/nuxt": "^0.10.1",
     "@prisma/client": "^5.9.1",
+    "@types/express": "^5.0.0",
     "bcrypt": "^5.1.1",
     "dompurify": "^3.2.4",
     "esbuild": "^0.25.0",
