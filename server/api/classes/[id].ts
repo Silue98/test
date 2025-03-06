@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
 
     // Étape 1 : Trouver l'utilisateur et son ID de classe
     const utilisateurWithClasse = await prisma.classe.findUnique({
-      where: { utilisateurId: userId }, // Assurez-vous que 'id' est bien la clé primaire de 'utilisateur'
+      where: { utilisateurId: userId }, // Utiliser 'id' comme clé primaire pour l'utilisateur
       select: { Id_classe: true }, // On ne récupère que l'ID de la classe
     });
 
@@ -37,22 +37,24 @@ export default defineEventHandler(async (event) => {
     // Étape 2 : Trouver les élèves associés à cette classe
     const eleves = await prisma.enfant.findMany({
       where: { Id_classe: classeId }, // Utilisation de la clé étrangère
-      include: { classe: true }, // Inclure les infos de la classe
+      // include: { classe: true }, // Inclure les infos de la classe
     });
+    console.log(`nombre user: ${eleves.length}`);
 
-    // Vérifier que les données sont un tableau valide
-    if (!Array.isArray(eleves)) {
-      console.error("Erreur, la réponse n'est pas un tableau:", eleves);
+
+    // Si aucun élève n'est trouvé
+    if (eleves.length === 0) {
       return {
-        statusCode: 500,
-        body: { message: "Les données retournées ne sont pas un tableau valide" },
+        statusCode: 404,
+        body: { message: "Aucun élève trouvé pour cette classe" },
       };
     }
 
-    console.log(`Nombre d'élèves trouvés : ${eleves.length}`);
-
-    // Retourner les élèves trouvés
-    return { body: eleves };
+    // Retourner les élèves trouvés avec un statut 200
+    return {
+      statusCode: 200,
+      body: eleves,
+    };
   } catch (error) {
     // Gestion des erreurs serveur
     console.error("Erreur serveur :", error);
