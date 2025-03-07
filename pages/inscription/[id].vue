@@ -143,7 +143,6 @@
 
     })
     
-    router.push({ path: "/List" })
 
 
 }
