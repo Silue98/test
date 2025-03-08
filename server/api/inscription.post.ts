@@ -37,6 +37,6 @@ export default defineEventHandler(async (event) => {
 
 
     
-  return { data: incription }
+  return { data: incription,status:"200" }
  
 })
