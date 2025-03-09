@@ -118,7 +118,87 @@
       </button>
     </div>
 
-    <!-- Modal pour le formulaire du père -->
+    <!-- Modal avec Formulaire -->
+    <div v-if="modalOuvert" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-xl font-semibold mb-4">Inscription de {{ enfantSelectionne.nomenfant }}</h2>
+
+        <!-- Formulaire -->
+        <form @submit.prevent="SendInscription">
+          <input type="hidden" v-model="enfantSelectionne.Id_Enfant" />
+          <div class="mb-4">
+            <label class="block text-gray-700">Nom :</label>
+            <input 
+              type="text" 
+              v-model="enfantSelectionne.nomenfant"
+              class="w-full p-2 border rounded-lg"
+              disabled
+            />
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-gray-700">Prénom :</label>
+            <input 
+              type="text" 
+              v-model="enfantSelectionne.prenomenfant"
+              class="w-full p-2 border rounded-lg"
+              disabled
+            />
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-gray-700">Genre :</label>
+            <input 
+              type="text" 
+              v-model="enfantSelectionne.genre"
+              class="w-full p-2 border rounded-lg"
+              disabled
+            />
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-gray-700">Classe :</label>
+            <select 
+              v-model="classeSelectionnee"
+              class="w-full p-2 border rounded-lg"
+              required
+            >
+              <option value="" disabled>Sélectionnez une classe</option>
+              <option v-for="cl in classes" :key="cl.Id_classe" :value="cl">
+                {{ cl.nomclass }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-gray-700">Date d'inscription :</label>
+            <input 
+              type="date" 
+              v-model="dateInscription"
+              class="w-full p-2 border rounded-lg"
+              required
+            />
+          </div>
+
+          <div class="flex justify-end mt-6">
+            <button 
+              @click="fermerModal"
+              type="button"
+              class="bg-gray-400 text-white px-4 py-2 rounded-lg mr-2 hover:bg-gray-500"
+            >
+              Annuler
+            </button>
+            <button 
+              type="submit"
+              class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+            >
+              Confirmer
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- formulaire -->
     <div v-if="modalPereOuvert" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div class="bg-white p-6 rounded-lg shadow-lg w-96 max-h-[90vh] overflow-y-auto">
         <h2 class="text-xl font-semibold mb-4">Information du père</h2>
@@ -391,6 +471,109 @@ const totalGarcons = computed(() => enfant.value.filter(e => e.genre === 'M').le
 const totalFilles = computed(() => enfant.value.filter(e => e.genre === 'F').length);
 const totalOrphelins = computed(() => enfant.value.filter(e => e.orphelinpas === 'oui').length);
 
+// Variables pour le modal
+const modalOuvert = ref(false);
+const enfantSelectionne = ref({});
+const classeSelectionnee = ref(null); // Stocke l'objet classe sélectionné
+const dateInscription = ref(new Date().toISOString().split('T')[0]); // Date du jour
+
+// Fonction pour ouvrir le modal avec les infos de l'enfant sélectionné
+const ouvrirModal = (enf) => {
+  enfantSelectionne.value = enf;
+  modalOuvert.value = true;
+};
+
+// Fonction pour fermer le modal
+const fermerModal = () => {
+  modalOuvert.value = false;
+  classeSelectionnee.value = null; // Réinitialiser la sélection de la classe
+  dateInscription.value = new Date().toISOString().split('T')[0]; // Réinitialiser la date
+};
+
+// Fonction pour soumettre l'inscription
+const SendInscription = async () => {
+  try {
+    if (!classeSelectionnee.value) {
+      alert("Veuillez sélectionner une classe.");
+      return;
+    }
+
+    await $fetch("/api/inscription", {
+      method: "POST",
+      body: {
+        nomenfant: enfantSelectionne.value.nomenfant,
+        prenomenfant: enfantSelectionne.value.prenomenfant,
+        Id_classe: classeSelectionnee.value.Id_classe, // ID de la classe
+        Id_Enfant: enfantSelectionne.value.Id_Enfant, // ID de l'enfant
+        dateinscription: dateInscription.value, // Date d'inscription
+        nom_classe: classeSelectionnee.value.nom_classe, // Nom de la classe
+      }
+    });
+
+    alert("Inscription réussie !");
+    fermerModal();
+  } catch (error) {
+    console.error("Erreur d'inscription :", error);
+    alert("Erreur lors de l'inscription !");
+  }
+};
+
+// Fonction pour supprimer un enfant
+const supprimerEnfant = async (enf) => {
+  try {
+    const confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet enfant ?");
+    if (!confirmation) return;
+
+    // Appel à l'API pour supprimer l'enfant
+    await $fetch(`/api/enfants/${enf.Id_Enfant}`, {
+      method: "DELETE",
+    });
+
+    // Mettre à jour la liste des enfants après suppression
+    enfant.value = enfant.value.filter(e => e.Id_Enfant !== enf.Id_Enfant);
+    alert("Enfant supprimé avec succès !");
+  } catch (error) {
+    console.error("Erreur lors de la suppression :", error);
+    alert("Erreur lors de la suppression de l'enfant !");
+  }
+};
+
+// Pagination
+const itemsPerPage = ref(10); // Nombre d'éléments par page (valeur par défaut)
+const currentPage = ref(1); // Page actuelle
+
+// Calcul des enfants paginés
+const paginatedEnfants = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  const end = start + itemsPerPage.value;
+  return enfant.value.slice(start, end);
+});
+
+// Calcul du nombre total de pages
+const totalPages = computed(() => Math.ceil(enfant.value.length / itemsPerPage.value));
+
+// Fonction pour aller à la page suivante
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+  }
+};
+
+// Fonction pour aller à la page précédente
+const previousPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+  }
+};
+
+// Réinitialiser la pagination lorsque itemsPerPage change
+watch(itemsPerPage, () => {
+  currentPage.value = 1; // Revenir à la première page
+});
+
+
+
+
 // Variables pour les modales
 const modalPereOuvert = ref(false);
 const modalMereOuvert = ref(false);
@@ -453,9 +636,10 @@ const fermerModalEnfant = () => {
 };
 
 // Fonctions pour soumettre les formulaires
-const SendPere = async () => {
-  // Logique pour soumettre le formulaire du père
-  console.log("Formulaire du père soumis :", {
+async function SendPere() {
+  const response = await useFetch('/api/Pere', {
+    method: "POST",
+    body: JSON.stringify({
     nompere: nompere.value,
     prenompere: prenompere.value,
     lieuhabitation: lieuhabitation.value,
@@ -464,13 +648,14 @@ const SendPere = async () => {
     profession: profession.value,
     religionpere: religionpere.value,
     eglisepere: eglisepere.value,
-  });
-};
+  })
+})};
 
 const SendMere = async () => {
   // Logique pour soumettre le formulaire de la mère
-  console.log("Formulaire de la mère soumis :", {
-    nommere: nommere.value,
+  const response = await useFetch('/api/Mere', {
+      method: "POST",
+      body: JSON.stringify({    nommere: nommere.value,
     prenommere: prenommere.value,
     lieuhabitationmere: lieuhabitationmere.value,
     numeromere: numeromere.value,
@@ -478,12 +663,14 @@ const SendMere = async () => {
     professionmere: professionmere.value,
     religionmere: religionmere.value,
     eglisemere: eglisemere.value,
-  });
-};
+  })
+});
+}
 
-const SendEnfant = async () => {
-  // Logique pour soumettre le formulaire de l'enfant
-  console.log("Formulaire de l'enfant soumis :", {
+async function SendEnfant() {
+  const response = await useFetch('/api/Enfant', {
+    method: "POST",
+    body: JSON.stringify({
     nomenfant: nomenfant.value,
     prenomenfant: prenomenfant.value,
     genre: genre.value,
@@ -493,39 +680,5 @@ const SendEnfant = async () => {
     orphelinpas: orphelinpas.value,
     datenaissance: datenaissance.value,
     emailenfant: emailenfant.value,
-  });
-};
-
-// Pagination
-const itemsPerPage = ref(10); // Nombre d'éléments par page (valeur par défaut)
-const currentPage = ref(1); // Page actuelle
-
-// Calcul des enfants paginés
-const paginatedEnfants = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage.value;
-  const end = start + itemsPerPage.value;
-  return enfant.value.slice(start, end);
-});
-
-// Calcul du nombre total de pages
-const totalPages = computed(() => Math.ceil(enfant.value.length / itemsPerPage.value));
-
-// Fonction pour aller à la page suivante
-const nextPage = () => {
-  if (currentPage.value < totalPages.value) {
-    currentPage.value++;
-  }
-};
-
-// Fonction pour aller à la page précédente
-const previousPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--;
-  }
-};
-
-// Réinitialiser la pagination lorsque itemsPerPage change
-watch(itemsPerPage, () => {
-  currentPage.value = 1; // Revenir à la première page
-});
-</script>
+  })
+})};</script>
