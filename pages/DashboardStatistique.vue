@@ -2,6 +2,7 @@
   <div class="p-6">
     <!-- Bouton Ajouter -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <!-- Cartes statistiques -->
       <div class="bg-blue-500 text-white p-4 rounded-lg shadow-md flex justify-between items-center">
         <div>
           <h3 class="text-lg font-semibold">Total Enregistré</h3>
@@ -9,39 +10,34 @@
         </div>
         <i class="fas fa-users text-3xl"></i>
       </div>
-
       <div class="bg-green-500 text-white p-4 rounded-lg shadow-md flex justify-between items-center">
         <div>
-          <h3 class="text-lg font-semibold">Total Inscrits</h3>
+          <h3 class="text-lg font-semibold">Total Garçons</h3>
           <p class="text-2xl">{{ totalGarcons }}</p>
         </div>
         <i class="fas fa-male text-3xl"></i>
       </div>
-
       <div class="bg-pink-500 text-white p-4 rounded-lg shadow-md flex justify-between items-center">
         <div>
-          <h3 class="text-lg font-semibold">Total paiement</h3>
+          <h3 class="text-lg font-semibold">Total Filles</h3>
           <p class="text-2xl">{{ totalFilles }}</p>
         </div>
         <i class="fas fa-female text-3xl"></i>
       </div>
-
       <div class="bg-yellow-500 text-white p-4 rounded-lg shadow-md flex justify-between items-center">
         <div>
-          <h3 class="text-lg font-semibold">Total Classe</h3>
+          <h3 class="text-lg font-semibold">Total Orphelins</h3>
           <p class="text-2xl">{{ totalOrphelins }}</p>
         </div>
         <i class="fas fa-heart-broken text-3xl"></i>
       </div>
     </div>
 
+    <!-- Tableau des enfants -->
     <div class="flex justify-between items-center mb-4">
       <div>
         <label class="block text-gray-700">Éléments par page :</label>
-        <select 
-          v-model="itemsPerPage"
-          class="p-2 border rounded-lg"
-        >
+        <select v-model="itemsPerPage" class="p-2 border rounded-lg">
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>
@@ -56,14 +52,14 @@
       </button>
     </div>
 
-    <!-- Tableau des enfants -->
+    <!-- Tableau -->
     <table class="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg overflow-hidden">
       <thead class="bg-gray-100">
         <tr>
           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">N°</th>
           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prénom</th>
-          <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">GENRE</th>
+          <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Genre</th>
           <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
         </tr>
       </thead>
@@ -81,13 +77,13 @@
               >
                 Inscrire
               </button>
-              <button 
+              <button
                 @click="ouvrirModalModification(enf)"
                 class="px-4 py-2 font-medium text-white bg-yellow-500 rounded-md hover:bg-yellow-600"
               >
                 Modifier
               </button>
-              <button 
+              <button
                 @click="supprimerEnfant(enf)"
                 class="px-4 py-2 font-medium text-white bg-red-500 rounded-md hover:bg-red-600"
               >
@@ -118,7 +114,8 @@
       </button>
     </div>
 
-    <!-- Modal avec Formulaire -->
+
+
     <div v-if="modalOuvert" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div class="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 class="text-xl font-semibold mb-4">Inscription de {{ enfantSelectionne.nomenfant }}</h2>
@@ -198,7 +195,10 @@
         </form>
       </div>
     </div>
-    <!-- formulaire -->
+
+
+
+    <!-- Modale pour le formulaire du père -->
     <div v-if="modalPereOuvert" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div class="bg-white p-6 rounded-lg shadow-lg w-96 max-h-[90vh] overflow-y-auto">
         <h2 class="text-xl font-semibold mb-4">Information du père</h2>
@@ -207,7 +207,7 @@
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nompere">
               Nom du père
             </label>
-            <input v-model="nompere" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nompere" type="text" placeholder="Jane">
+            <input v-model="nompere" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nompere" type="text" placeholder="Nom du père">
           </div>
           <div class="mb-4">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="prenompere">
@@ -252,16 +252,15 @@
             <input v-model="eglisepere" type="text" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="eglisepere">
           </div>
           <div class="flex justify-end mt-6">
-            <button 
+            <button
               @click="fermerModalPere"
               type="button"
               class="bg-gray-400 text-white px-4 py-2 rounded-lg mr-2 hover:bg-gray-500"
             >
               Annuler
             </button>
-            <button 
-              @click="openModalMere"
-              type="button"
+            <button
+              type="submit"
               class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
             >
               Suivant
@@ -271,7 +270,7 @@
       </div>
     </div>
 
-    <!-- Modal pour le formulaire de la mère -->
+    <!-- Modale pour le formulaire de la mère -->
     <div v-if="modalMereOuvert" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div class="bg-white p-6 rounded-lg shadow-lg w-96 max-h-[90vh] overflow-y-auto">
         <h2 class="text-xl font-semibold mb-4">Information de la mère</h2>
@@ -280,7 +279,7 @@
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nommere">
               Nom de la mère
             </label>
-            <input v-model="nommere" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nommere" type="text" placeholder="Jane">
+            <input v-model="nommere" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nommere" type="text" placeholder="Nom de la mère">
           </div>
           <div class="mb-4">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="prenommere">
@@ -325,16 +324,15 @@
             <input v-model="eglisemere" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="eglisemere">
           </div>
           <div class="flex justify-end mt-6">
-            <button 
+            <button
               @click="fermerModalMere"
               type="button"
               class="bg-gray-400 text-white px-4 py-2 rounded-lg mr-2 hover:bg-gray-500"
             >
               Retour
             </button>
-            <button 
-              @click="openModalEnfant"
-              type="button"
+            <button
+              type="submit"
               class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
             >
               Suivant
@@ -344,16 +342,20 @@
       </div>
     </div>
 
-    <!-- Modal pour le formulaire de l'enfant -->
+    <!-- Modale pour le formulaire de l'enfant -->
     <div v-if="modalEnfantOuvert" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div class="bg-white p-6 rounded-lg shadow-lg w-96 max-h-[90vh] overflow-y-auto">
         <h2 class="text-xl font-semibold mb-4">Information de l'enfant</h2>
         <form @submit.prevent="SendEnfant">
+          <!-- Champs cachés pour les IDs du père et de la mère -->
+          <input type="hidden" v-model="idPere" />
+          <input type="hidden" v-model="idMere" />
+
           <div class="mb-4">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nomenfant">
               Nom de l'enfant
             </label>
-            <input v-model="nomenfant" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nomenfant" type="text" placeholder="Jane">
+            <input v-model="nomenfant" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nomenfant" type="text" placeholder="Nom de l'enfant">
           </div>
           <div class="mb-4">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="prenomenfant">
@@ -371,34 +373,16 @@
             </select>
           </div>
           <div class="mb-4">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="lieuhabitation">
-              Lieu d'habitation
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="lieunaissanceenfant">
+              Lieu de naissance
             </label>
-            <input v-model="lieuhabitation" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="lieuhabitation">
-          </div>
-          <div class="mb-4">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="numerotelephone">
-              Numéro de téléphone
-            </label>
-            <input v-model="numerotelephone" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="numerotelephone">
-          </div>
-          <div class="mb-4">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="emailenfant">
-              Email
-            </label>
-            <input v-model="emailenfant" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="emailenfant">
+            <input v-model="lieunaissanceenfant" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="lieunaissanceenfant">
           </div>
           <div class="mb-4">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="datenaissance">
               Date de naissance
             </label>
             <input v-model="datenaissance" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="datenaissance" type="date">
-          </div>
-          <div class="mb-4">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="lieunaissanceenfant">
-              Lieu de naissance
-            </label>
-            <input v-model="lieunaissanceenfant" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="lieunaissanceenfant">
           </div>
           <div class="mb-4">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="club">
@@ -431,14 +415,14 @@
             </div>
           </div>
           <div class="flex justify-end mt-6">
-            <button 
+            <button
               @click="fermerModalEnfant"
               type="button"
               class="bg-gray-400 text-white px-4 py-2 rounded-lg mr-2 hover:bg-gray-500"
             >
               Retour
             </button>
-            <button 
+            <button
               type="submit"
               class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
             >
@@ -454,11 +438,9 @@
 <script setup>
 import { ref, computed, onMounted, watch } from "vue";
 
-// Récupération des données des enfants
+// Données des enfants et classes
 const enfants = await $fetch("/api/listeenregist");
 const enfant = ref(enfants.data);
-
-// Récupération des données des classes
 const classes = ref([]);
 
 onMounted(async () => {
@@ -466,12 +448,34 @@ onMounted(async () => {
   classes.value = response.data;
 });
 
-// Variables pour les statistiques des cartes
+// Statistiques
 const totalGarcons = computed(() => enfant.value.filter(e => e.genre === 'M').length);
 const totalFilles = computed(() => enfant.value.filter(e => e.genre === 'F').length);
 const totalOrphelins = computed(() => enfant.value.filter(e => e.orphelinpas === 'oui').length);
 
-// Variables pour le modal
+// Pagination
+const itemsPerPage = ref(10);
+const currentPage = ref(1);
+const paginatedEnfants = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  const end = start + itemsPerPage.value;
+  return enfant.value.slice(start, end);
+});
+const totalPages = computed(() => Math.ceil(enfant.value.length / itemsPerPage.value));
+
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) currentPage.value++;
+};
+const previousPage = () => {
+  if (currentPage.value > 1) currentPage.value--;
+};
+
+watch(itemsPerPage, () => {
+  currentPage.value = 1;
+});
+
+
+
 const modalOuvert = ref(false);
 const enfantSelectionne = ref({});
 const classeSelectionnee = ref(null); // Stocke l'objet classe sélectionné
@@ -518,66 +522,25 @@ const SendInscription = async () => {
   }
 };
 
-// Fonction pour supprimer un enfant
-const supprimerEnfant = async (enf) => {
-  try {
-    const confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet enfant ?");
-    if (!confirmation) return;
-
-    // Appel à l'API pour supprimer l'enfant
-    await $fetch(`/api/enfants/${enf.Id_Enfant}`, {
-      method: "DELETE",
-    });
-
-    // Mettre à jour la liste des enfants après suppression
-    enfant.value = enfant.value.filter(e => e.Id_Enfant !== enf.Id_Enfant);
-    alert("Enfant supprimé avec succès !");
-  } catch (error) {
-    console.error("Erreur lors de la suppression :", error);
-    alert("Erreur lors de la suppression de l'enfant !");
-  }
-};
-
-// Pagination
-const itemsPerPage = ref(10); // Nombre d'éléments par page (valeur par défaut)
-const currentPage = ref(1); // Page actuelle
-
-// Calcul des enfants paginés
-const paginatedEnfants = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage.value;
-  const end = start + itemsPerPage.value;
-  return enfant.value.slice(start, end);
-});
-
-// Calcul du nombre total de pages
-const totalPages = computed(() => Math.ceil(enfant.value.length / itemsPerPage.value));
-
-// Fonction pour aller à la page suivante
-const nextPage = () => {
-  if (currentPage.value < totalPages.value) {
-    currentPage.value++;
-  }
-};
-
-// Fonction pour aller à la page précédente
-const previousPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--;
-  }
-};
-
-// Réinitialiser la pagination lorsque itemsPerPage change
-watch(itemsPerPage, () => {
-  currentPage.value = 1; // Revenir à la première page
-});
 
 
-
-
-// Variables pour les modales
+// Modales
 const modalPereOuvert = ref(false);
 const modalMereOuvert = ref(false);
 const modalEnfantOuvert = ref(false);
+
+const openModalPere = () => (modalPereOuvert.value = true);
+const fermerModalPere = () => (modalPereOuvert.value = false);
+const openModalMere = () => {
+  modalMereOuvert.value = true;
+  modalPereOuvert.value = false;
+};
+const fermerModalMere = () => (modalMereOuvert.value = false);
+const openModalEnfant = () => {
+  modalEnfantOuvert.value = true;
+  modalMereOuvert.value = false;
+};
+const fermerModalEnfant = () => (modalEnfantOuvert.value = false);
 
 // Variables pour les formulaires
 const nompere = ref('');
@@ -608,77 +571,98 @@ const orphelinpas = ref('');
 const datenaissance = ref('');
 const emailenfant = ref('');
 
-// Fonctions pour ouvrir/fermer les modales
-const openModalPere = () => {
-  modalPereOuvert.value = true;
-};
+// Variables pour stocker les IDs du père et de la mère
+const idPere = ref(null);
+const idMere = ref(null);
 
-const fermerModalPere = () => {
-  modalPereOuvert.value = false;
-};
+// Soumission des formulaires
+const SendPere = async () => {
+  try {
+    const response = await $fetch("/api/Pere", {
+      method: "POST",
+      body: {
+        nompere: nompere.value,
+        prenompere: prenompere.value,
+        lieuhabitation: lieuhabitation.value,
+        numerotelephone: numerotelephone.value,
+        email: email.value,
+        profession: profession.value,
+        religionpere: religionpere.value,
+        eglisepere: eglisepere.value,
+      },
+    });
 
-const openModalMere = () => {
-  modalMereOuvert.value = true;
-  modalPereOuvert.value = false;
-};
+    if (!response) {
+      throw new Error("La réponse de l'API est vide");
+    }
 
-const fermerModalMere = () => {
-  modalMereOuvert.value = false;
+    console.log("Père ajouté :", response);
+    idPere.value = response.id; // Stocker l'ID du père
+    openModalMere(); // Passer au formulaire de la mère
+  } catch (error) {
+    console.error("Erreur lors de l'ajout du père :", error);
+    alert("Erreur lors de l'ajout du père !");
+  }
 };
-
-const openModalEnfant = () => {
-  modalEnfantOuvert.value = true;
-  modalMereOuvert.value = false;
-};
-
-const fermerModalEnfant = () => {
-  modalEnfantOuvert.value = false;
-};
-
-// Fonctions pour soumettre les formulaires
-async function SendPere() {
-  const response = await useFetch('/api/Pere', {
-    method: "POST",
-    body: JSON.stringify({
-    nompere: nompere.value,
-    prenompere: prenompere.value,
-    lieuhabitation: lieuhabitation.value,
-    numerotelephone: numerotelephone.value,
-    email: email.value,
-    profession: profession.value,
-    religionpere: religionpere.value,
-    eglisepere: eglisepere.value,
-  })
-})};
 
 const SendMere = async () => {
-  // Logique pour soumettre le formulaire de la mère
-  const response = await useFetch('/api/Mere', {
+  try {
+    const response = await $fetch("/api/Mere", {
       method: "POST",
-      body: JSON.stringify({    nommere: nommere.value,
-    prenommere: prenommere.value,
-    lieuhabitationmere: lieuhabitationmere.value,
-    numeromere: numeromere.value,
-    emailmere: emailmere.value,
-    professionmere: professionmere.value,
-    religionmere: religionmere.value,
-    eglisemere: eglisemere.value,
-  })
-});
-}
+      body: {
+        nommere: nommere.value,
+        prenommere: prenommere.value,
+        lieuhabitationmere: lieuhabitationmere.value,
+        numeromere: numeromere.value,
+        emailmere: emailmere.value,
+        professionmere: professionmere.value,
+        religionmere: religionmere.value,
+        eglisemere: eglisemere.value,
+      },
+    });
 
-async function SendEnfant() {
-  const response = await useFetch('/api/Enfant', {
-    method: "POST",
-    body: JSON.stringify({
-    nomenfant: nomenfant.value,
-    prenomenfant: prenomenfant.value,
-    genre: genre.value,
-    lieunaissanceenfant: lieunaissanceenfant.value,
-    club: club.value,
-    dateentreed: dateentreed.value,
-    orphelinpas: orphelinpas.value,
-    datenaissance: datenaissance.value,
-    emailenfant: emailenfant.value,
-  })
-})};</script>
+    if (!response) {
+      throw new Error("La réponse de l'API est vide");
+    }
+
+    console.log("Mère ajoutée :", response);
+    idMere.value = response.id; // Stocker l'ID de la mère
+    openModalEnfant(); // Passer au formulaire de l'enfant
+  } catch (error) {
+    console.error("Erreur lors de l'ajout de la mère :", error);
+    alert("Erreur lors de l'ajout de la mère !");
+  }
+};
+
+const SendEnfant = async () => {
+  try {
+    const response = await $fetch("/api/Enfant", {
+      method: "POST",
+      body: {
+        nomenfant: nomenfant.value,
+        prenomenfant: prenomenfant.value,
+        genre: genre.value,
+        lieunaissanceenfant: lieunaissanceenfant.value,
+        club: club.value,
+        dateentreed: dateentreed.value,
+        orphelinpas: orphelinpas.value,
+        datenaissance: datenaissance.value,
+        emailenfant: emailenfant.value,
+        Id_Pere: idPere.value, // Passer l'ID du père
+        Id_Mere: idMere.value, // Passer l'ID de la mère
+      },
+    });
+
+    if (!response) {
+      throw new Error("La réponse de l'API est vide");
+    }
+
+    console.log("Enfant ajouté :", response);
+    fermerModalEnfant(); // Fermer la modale après soumission
+    alert("Enfant ajouté avec succès !");
+  } catch (error) {
+    console.error("Erreur lors de l'ajout de l'enfant :", error);
+    alert("Erreur lors de l'ajout de l'enfant !");
+  }
+};
+</script>
