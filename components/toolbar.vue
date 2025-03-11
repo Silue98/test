@@ -21,21 +21,20 @@
           </button>
         </div>
 
-        <!-- Logo ECODIM (au centre de la toolbar) -->
-        
         <!-- Barre de recherche -->
         <div class="flex items-center justify-center w-full sm:w-auto">
           <input
             type="text"
+            v-model="searchQuery"
             placeholder="Rechercher..."
             class="w-full sm:w-64 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition duration-300"
+            @input="handleSearch"
           />
         </div>
 
         <!-- Menu de navigation sur écran large -->
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
-           
             <NuxtLink to="/table" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition duration-300">
               Enregistrer
             </NuxtLink>
@@ -46,18 +45,11 @@
               Enfants inscrits
             </NuxtLink>
             <NuxtLink to="/ListInscritPaiement" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition duration-300 flex items-center space-x-2">
-  <!-- Icône de profil humain (tête de l'homme) -->
-  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c4.418 0 8-2.686 8-6s-3.582-6-8-6-8 2.686-8 6 3.582 6 8 6zM4 20c0-4.418 3.582-8 8-8s8 3.582 8 8H4z" />
-  </svg>
-  <!-- Texte en noir et gras -->
-  <h1 class="font-bold text-black">{{ userStore.user?.name }}</h1>
-</NuxtLink>
-
-
-
-
-
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c4.418 0 8-2.686 8-6s-3.582-6-8-6-8 2.686-8 6 3.582 6 8 6zM4 20c0-4.418 3.582-8 8-8s8 3.582 8 8H4z" />
+              </svg>
+              <h1 class="font-bold text-black">{{ userStore.user?.name }}</h1>
+            </NuxtLink>
           </div>
         </div>
       </div>
@@ -85,16 +77,61 @@
     </div>
   </nav>
 </template>
+
 <script>
-  import { useUserStore } from "../store/user";
-  
-  export default {
-    setup() {
-      const userStore = useUserStore(); // Correction : appel de la fonction
-  
-      
-  
-      return { userStore };
-    },
-  };
-  </script>
+import { useUserStore } from "../store/user";
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
+
+export default {
+  setup() {
+    const userStore = useUserStore();
+    const searchQuery = ref("");
+    const route = useRoute();
+
+    // Détecter la page actuelle
+    const currentPage = computed(() => {
+      return route.path; // Retourne le chemin de la route actuelle
+    });
+
+    // Gérer la recherche en fonction de la page
+    const handleSearch = () => {
+      const query = searchQuery.value.trim();
+
+      if (query) {
+        // Logique de recherche en fonction de la page
+        switch (currentPage.value) {
+          case "/DashboardStatistique": // Dashboard
+            console.log("Recherche sur le dashboard :", query);
+            // Ajoutez ici la logique pour filtrer les données du dashboard
+            break;
+          case "/List": // Enfants enregistrés
+            console.log("Recherche sur la liste des enfants enregistrés :", query);
+            // Ajoutez ici la logique pour filtrer la liste des enfants enregistrés
+            break;
+          case "/ListInscrit": // Enfants inscrits
+            console.log("Recherche sur la liste des enfants inscrits :", query);
+            // Ajoutez ici la logique pour filtrer la liste des enfants inscrits
+            break;
+          case "/ListInscritPaiement": // Paiements
+            console.log("Recherche sur la liste des paiements :", query);
+            // Ajoutez ici la logique pour filtrer la liste des paiements
+            break;
+          default:
+            console.log("Page non gérée :", currentPage.value);
+        }
+      } else {
+        // Si la recherche est vide, réinitialiser les résultats
+        console.log("Réinitialisation de la recherche");
+        // Ajoutez ici la logique pour réinitialiser les résultats
+      }
+    };
+
+    return {
+      userStore,
+      searchQuery,
+      handleSearch,
+    };
+  },
+};
+</script>

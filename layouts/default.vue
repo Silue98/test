@@ -1,7 +1,7 @@
 <template>
   <div class="flex min-h-screen w-full bg-orange-50 text-gray-900">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white text-gray-800 shadow-lg border-r border-orange-300">
+    <!-- Barre latérale fixe -->
+    <aside class="fixed inset-y-0 left-0 w-64 bg-white text-gray-800 shadow-lg border-r border-orange-300">
       <!-- Logo -->
       <div class="mb-8 text-center py-6 bg-orange-500 text-white rounded-b-lg shadow-md">
         <NuxtLink to="/DashboardStatistique" class="text-3xl font-extrabold tracking-wide hover:text-orange-200 transition duration-300">
@@ -16,11 +16,10 @@
           class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-orange-100 hover:bg-orange-300 hover:text-white">
           <span>🏠</span>
           <span>Tableau de Bord</span>
-          >
         </NuxtLink>
 
         <NuxtLink 
-          to="/table" 
+          to="/ListInscrit" 
           class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-orange-100 hover:bg-orange-300 hover:text-white">
           <span>📝</span>
           <span>Liste</span>
@@ -69,22 +68,24 @@
         </NuxtLink>
 
         <NuxtLink 
-  to="/logout" 
-  @click.prevent="logout"  
-  class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-red-500 text-white hover:bg-red-400">
-  <span>🚪</span>
-  <span>Déconnexion</span>
-</NuxtLink>
+          to="/logout" 
+          @click.prevent="logout"  
+          class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-red-500 text-white hover:bg-red-400">
+          <span>🚪</span>
+          <span>Déconnexion</span>
+        </NuxtLink>
       </nav>
     </aside>
 
-    <!-- Zone de contenu principal -->
-    <div class="flex-1 flex flex-col">
-      <!-- Toolbar -->
-      <Toolbar />
+    <!-- Contenu principal -->
+    <div class="flex-1 ml-64">
+      <!-- Toolbar fixe -->
+      <div class="fixed top-0 left-64 right-0 bg-white shadow-md z-10">
+        <Toolbar />
+      </div>
 
-      <!-- Contenu de la page injecté ici -->
-      <main class="p-6">
+      <!-- Contenu défilable -->
+      <main class="mt-16 p-6 overflow-y-auto">
         <slot />
       </main>
     </div>
@@ -106,7 +107,4 @@ function logout() {
   // Rediriger vers la page d'accueil (login)
   router.push('/');  // Redirection vers la page de login (index)
 }
-
-
-
 </script>
