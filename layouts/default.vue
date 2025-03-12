@@ -93,7 +93,7 @@
         </NuxtLink>
 
         <NuxtLink 
-          to="/logout" 
+        to="/"
           @click.prevent="logout"  
           class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-red-500 text-white hover:bg-red-400">
           <span>🚪</span>
@@ -120,6 +120,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '~/store/user';
+
 
 const router = useRouter();
 const isSidebarOpen = ref(false);
@@ -148,8 +150,7 @@ onUnmounted(() => {
 
 // Fonction de déconnexion
 function logout() {
-  localStorage.removeItem('userToken');
-  sessionStorage.removeItem('userToken');
-  router.push('/');
+  userStore.logout(); // Appelez la méthode logout du store Pinia
+  router.replace('/'); // Redirigez vers la page de connexion et effacez l'historique de navigation
 }
 </script>

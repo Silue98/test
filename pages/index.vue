@@ -6,27 +6,22 @@
       </h1>
 
       <form class="mt-6" @submit.prevent="handleLogin">
-        <!-- Champ Email -->
         <div>
           <label for="email" class="block text-sm text-gray-800">Email</label>
           <input v-model="email" type="email" id="email" name="email" autocomplete="email" required
             class="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40">
         </div>
 
-        <!-- Champ Mot de passe -->
         <div class="mt-4 relative">
           <label for="password" class="block text-sm text-gray-800">Password</label>
           <input :type="showPassword ? 'text' : 'password'" v-model="password" id="password" name="password" autocomplete="current-password" required
             class="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40">
           
-          <!-- Icône pour afficher/masquer le mot de passe -->
           <button type="button" @click.prevent="togglePassword" class="absolute right-3 top-10 text-gray-500 hover:text-gray-700">
             <EyeIcon v-if="!showPassword" class="w-5 h-5"/>
             <EyeSlashIcon v-else class="w-5 h-5"/>
           </button>
         </div>
-
-        <a href="#" class="text-xs text-gray-600 hover:underline">Forget Password?</a>
 
         <div class="mt-6">
           <button type="submit"
@@ -46,36 +41,32 @@
 
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/vue/24/outline"; // Import des icônes
-import { useUserStore } from "@/store/user"; // Import du store Pinia
-import { storeToRefs } from "pinia"; // Ajout de l'import correct pour les références du store
+import { EyeIcon, EyeSlashIcon } from "@heroicons/vue/24/outline";
+import { useUserStore } from "@/store/user";
 
 const email = ref("");
 const password = ref("");
 const showPassword = ref(false);
-const router = useRouter();
-const userStore = useUserStore(); // Instancier le store
-const { user } = storeToRefs(userStore); // Récupérer la référence de l'utilisateur
+const userStore = useUserStore();
 
-// Fonction pour afficher/masquer le mot de passe
 const togglePassword = () => {
   showPassword.value = !showPassword.value;
 };
 
-// Fonction de connexion
 const handleLogin = async () => {
   const credentials = {
     email: email.value,
     password: password.value,
   };
-  try {
-    await userStore.login(credentials); // Utilisation de l'action login du store
 
-    if (userStore.user) { // Vérifie si l'utilisateur est défini après connexion
-      // console.log("Utilisateur connecté 1:", userStore.user); // Utilise .value pour accéder aux données
+  try {
+    await userStore.login(credentials);
+
+    console.log("🔓 Token après connexion :", userStore.token);
+
+    if (userStore.token) { 
       alert("Connexion réussie !");
-      router.push("/DashboardStatistique"); // Redirige vers le tableau de bord
+      await navigateTo("/DashboardStatistique", { replace: true });
     } else {
       alert("Problème de connexion. Veuillez réessayer.");
     }
@@ -84,9 +75,7 @@ const handleLogin = async () => {
   }
 };
 
-// Appliquer le layout spécifique
 definePageMeta({
   layout: 'connexion'
 });
 </script>
-

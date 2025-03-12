@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@i2d/nuxt-pdf-frame',
     '@sidebase/nuxt-pdf',
    '@pinia/nuxt',
+   
 
     //'@pinia/nuxt',  // Assurez-vous que ce module est ajouté ici
 
