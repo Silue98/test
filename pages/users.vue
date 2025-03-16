@@ -95,7 +95,7 @@
               <label class="block text-sm font-medium text-gray-700">Email</label>
               <input v-model="newUser.email" class="mt-1 block w-full px-3 py-2 border rounded-md" type="email" placeholder="Email" required />
             </div>
-              <input v-model="newUser.password" type="hidden" value="password" />
+              <input v-model="newUser.password" type="hidden"  />
   
             <div class="flex justify-end">
               <button type="submit" class="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500">
