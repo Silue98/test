@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   const prisma = new PrismaClient();
   const body = await readBody(event);
 
-  const { name, email, password } = body;
+  const { name, email, password, prenom } = body;
 
   // Vérifier si l'utilisateur existe déjà
   const existingUser = await prisma.utilisateur.findUnique({
@@ -25,6 +25,9 @@ export default defineEventHandler(async (event) => {
       name,
       email,
       password: hashedPassword,
+      prenom,
+      
+      
     },
   });
 

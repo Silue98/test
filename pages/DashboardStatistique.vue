@@ -1,3 +1,4 @@
+
 <template>
   <div class="p-6">
     <!-- Bouton Ajouter -->
@@ -114,13 +115,10 @@
       </button>
     </div>
 
-
-
+    <!-- Modale pour l'inscription -->
     <div v-if="modalOuvert" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div class="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 class="text-xl font-semibold mb-4">Inscription de {{ enfantSelectionne.nomenfant }}</h2>
-
-        <!-- Formulaire -->
         <form @submit.prevent="SendInscription">
           <input type="hidden" v-model="enfantSelectionne.Id_Enfant" />
           <div class="mb-4">
@@ -132,7 +130,6 @@
               disabled
             />
           </div>
-
           <div class="mb-4">
             <label class="block text-gray-700">Prénom :</label>
             <input 
@@ -142,7 +139,6 @@
               disabled
             />
           </div>
-
           <div class="mb-4">
             <label class="block text-gray-700">Genre :</label>
             <input 
@@ -152,7 +148,6 @@
               disabled
             />
           </div>
-
           <div class="mb-4">
             <label class="block text-gray-700">Classe :</label>
             <select 
@@ -166,7 +161,6 @@
               </option>
             </select>
           </div>
-
           <div class="mb-4">
             <label class="block text-gray-700">Date d'inscription :</label>
             <input 
@@ -176,7 +170,6 @@
               required
             />
           </div>
-
           <div class="flex justify-end mt-6">
             <button 
               @click="fermerModal"
@@ -195,8 +188,6 @@
         </form>
       </div>
     </div>
-
-
 
     <!-- Modale pour le formulaire du père -->
     <div v-if="modalPereOuvert" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
@@ -434,7 +425,6 @@
     </div>
   </div>
 </template>
-
 <script setup>
 import { ref, computed, onMounted, watch } from "vue";
 
@@ -442,6 +432,12 @@ import { ref, computed, onMounted, watch } from "vue";
 const enfants = await $fetch("/api/listeenregist");
 const enfant = ref(enfants.data);
 const classes = ref([]);
+
+// Fonction pour recharger les enfants
+const fetchEnfants = async () => {
+  const response = await $fetch("/api/listeenregist");
+  enfant.value = response.data;
+};
 
 onMounted(async () => {
   const response = await $fetch("/api/classe");
@@ -474,8 +470,7 @@ watch(itemsPerPage, () => {
   currentPage.value = 1;
 });
 
-
-
+// Modales
 const modalOuvert = ref(false);
 const enfantSelectionne = ref({});
 const classeSelectionnee = ref(null); // Stocke l'objet classe sélectionné
@@ -522,9 +517,7 @@ const SendInscription = async () => {
   }
 };
 
-
-
-// Modales
+// Modales pour le père, la mère et l'enfant
 const modalPereOuvert = ref(false);
 const modalMereOuvert = ref(false);
 const modalEnfantOuvert = ref(false);
@@ -659,6 +652,7 @@ const SendEnfant = async () => {
 
     console.log("Enfant ajouté :", response);
     fermerModalEnfant(); // Fermer la modale après soumission
+    await fetchEnfants(); // Recharger la liste des enfants
     alert("Enfant ajouté avec succès !");
   } catch (error) {
     console.error("Erreur lors de l'ajout de l'enfant :", error);

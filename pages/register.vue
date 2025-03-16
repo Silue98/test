@@ -8,6 +8,10 @@
             <input v-model="name" type="text" class="border rounded w-full px-3 py-2" required>
           </div>
           <div class="mt-4">
+            <label>Prenom</label>
+            <input v-model="prenom" type="text" class="border rounded w-full px-3 py-2" required>
+          </div>
+          <div class="mt-4">
             <label>Email</label>
             <input v-model="email" type="email" class="border rounded w-full px-3 py-2" required>
           </div>
@@ -24,7 +28,7 @@
         <p v-if="error" class="text-red-500 mt-2">{{ error }}</p>
         <p v-if="success" class="text-green-500 mt-2">Inscription réussie ! Redirection...</p>
         <p class="mt-4 text-center text-sm">
-          Déjà un compte ? <NuxtLink to="/login" class="text-yellow-500">Se connecter</NuxtLink>
+          Déjà un compte ? <NuxtLink to="/" class="text-yellow-500">Se connecter</NuxtLink>
         </p>
       </div>
     </div>
@@ -36,6 +40,7 @@
   const name = ref("");
   const email = ref("");
   const password = ref("");
+  const prenom = ref("");
   const confirmPassword = ref("");
   const error = ref("");
   const success = ref(false);
@@ -57,6 +62,7 @@
           name: name.value,
           email: email.value,
           password: password.value,
+          prenom: prenom.value,
         }),
       });
   
@@ -74,7 +80,9 @@
     }
   };
   definePageMeta({
-    layout: 'connexion'
+    layout: 'connexion',
+
   });
+  
   </script>
   

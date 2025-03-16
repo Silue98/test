@@ -27,16 +27,12 @@ export const useUserStore = defineStore('user', {
           body: JSON.stringify(credentials),
         });
     
-        console.log("📡 Réponse brute de l'API :", response);
-    
         if (!response.ok) {
           throw new Error(`Échec de la requête - Code: ${response.status}`);
         }
     
         const data = await response.json();
-        console.log("📡 Données reçues de l'API :", data);
     
-        // ✅ Correction : conversion en nombre
         if (parseInt(data.status) === 200 && data.token) {
           this.user = data.user;
           this.token = data.token;
@@ -47,8 +43,6 @@ export const useUserStore = defineStore('user', {
             localStorage.setItem('user', JSON.stringify(data.user));
             localStorage.setItem('userId', data.user.id.toString());
           }
-    
-          console.log("✅ Connexion réussie :", this.user);
         } else {
           throw new Error(data.message || "Échec de connexion");
         }
@@ -56,26 +50,20 @@ export const useUserStore = defineStore('user', {
         console.error("❌ Erreur lors de la connexion :", error.message);
         throw error;
       }
-    
-    
-        
     },
 
     logout() {
       this.user = null;
       this.token = null;
       this.userId = null;
-
-      // Supprimer les données du localStorage (côté client uniquement)
+    
       if (process.client) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         localStorage.removeItem('userId');
       }
-      window.location.href = "/"; // Redirige vers la page de connexion et recharge la page
-
-
-      console.log("🚪 Déconnexion réussie !");
+    
+      return navigateTo('/');
     },
 
     initialize() {
@@ -85,13 +73,35 @@ export const useUserStore = defineStore('user', {
         const userId = localStorage.getItem('userId');
 
         if (token && user && userId) {
-          this.token = token;
-          this.user = JSON.parse(user);
-          this.userId = parseInt(userId, 10);
+          const tokenExpiration = this.isTokenExpired(token);
+          if (tokenExpiration) {
+            this.logout(); // Si le token est expiré, déconnecte l'utilisateur
+          } else {
+            this.token = token;
+            this.user = JSON.parse(user);
+            this.userId = parseInt(userId, 10);
+          }
         }
-
-        console.log("🔄 Initialisation du store, token récupéré :", this.token);
       }
     },
+
+    // Fonction pour vérifier si le token a expiré
+    isTokenExpired(token: string): boolean {
+      const decoded: any = this.decodeToken(token);
+      const expirationTime = decoded.exp * 1000; // Convertir l'expiration de secondes à millisecondes
+      const currentTime = Date.now();
+      return currentTime > expirationTime;
+    },
+
+    // Fonction pour décoder un token sans le valider côté serveur (juste pour vérifier l'expiration)
+    decodeToken(token: string): any {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+
+      return JSON.parse(jsonPayload);
+    }
   },
 });

@@ -130,7 +130,8 @@ model Utilisateur {
   name      String
   email     String   @unique
   password  String
+  prenom    String
+  Actif    Boolean  @default(false)  // Par défaut, status sera false
   createdAt DateTime @default(now())
-
   classe       classe?  @relation // Relation 1-1 avec `classe`
 }

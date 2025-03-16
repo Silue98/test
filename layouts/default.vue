@@ -21,7 +21,7 @@
       </svg>
     </button>
 
-    <!-- Barre latérale (visible sur les grands écrans, masquée sur les petits écrans) -->
+    <!-- Barre latérale -->
     <aside
       v-show="isSidebarOpen || !isMobile"
       class="fixed inset-y-0 left-0 w-64 bg-white text-gray-800 shadow-lg border-r border-orange-300 transform transition-transform duration-300 ease-in-out sm:translate-x-0"
@@ -93,7 +93,7 @@
         </NuxtLink>
 
         <NuxtLink 
-        to="/"
+          to="/"
           @click.prevent="logout"  
           class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-red-500 text-white hover:bg-red-400">
           <span>🚪</span>
@@ -122,8 +122,8 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/store/user';
 
-
 const router = useRouter();
+const userStore = useUserStore(); // Initialisation du store
 const isSidebarOpen = ref(false);
 const isMobile = ref(false);
 
@@ -148,9 +148,14 @@ onUnmounted(() => {
   window.removeEventListener('resize', checkScreenSize);
 });
 
-// Fonction de déconnexion
+// Fonction de déconnexion avec empêchement du retour arrière
 function logout() {
-  userStore.logout(); // Appelez la méthode logout du store Pinia
-  router.replace('/'); // Redirigez vers la page de connexion et effacez l'historique de navigation
+  userStore.logout(); // Supprimer les données utilisateur et le token
+  
+  // Empêcher l'utilisateur de revenir en arrière après la déconnexion
+  window.history.pushState(null, "", "/");
+
+  // Redirection propre
+  window.location.replace("/");
 }
 </script>
