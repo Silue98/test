@@ -103,8 +103,13 @@
               <label class="block text-sm font-medium text-gray-700">Email</label>
               <input v-model="newUser.email" class="mt-1 block w-full px-3 py-2 border rounded-md" type="email" placeholder="Email" required />
             </div>
+<<<<<<< HEAD
             <!-- Champ caché pour le mot de passe -->
             <input v-model="newUser.password" type="hidden" />
+=======
+              <input v-model="newUser.password" type="hidden"  />
+  
+>>>>>>> 382c232417151b4b4931975084573912e8165467
             <div class="flex justify-end">
               <button type="submit" class="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500">
                 Enregistrer
