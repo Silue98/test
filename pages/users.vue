@@ -1,13 +1,17 @@
 <template>
     <div>
-      <!-- Bouton pour ajouter un utilisateur -->
-      <div class="flex">
+      <!-- Bouton pour ajouter un utilisateur et message de succès -->
+      <div class="flex items-center mb-4">
         <button
-          class="ml-auto mb-4 px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500"
+          class="ml-auto px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500"
           @click="openModalUser"
         >
           Ajouter
         </button>
+        <!-- Message de succès -->
+        <div v-if="successMessage" class="ml-4 p-2 bg-green-500 text-white rounded-lg shadow-lg">
+          {{ successMessage }}
+        </div>
       </div>
   
       <!-- Sélection du nombre d'éléments par page -->
@@ -38,7 +42,16 @@
             <td class="px-6 py-4">{{ user.prenom }}</td>
             <td class="px-6 py-4">{{ user.email }}</td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <button class="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500">
+              <button
+                @click="openEditModal(user)"
+                class="px-4 py-2 font-medium text-white bg-yellow-500 rounded-md hover:bg-yellow-600"
+              >
+                Modifier
+              </button>
+              <button
+                @click="deleteUser(user.id)"
+                class="ml-2 px-4 py-2 font-medium text-white bg-red-500 rounded-md hover:bg-red-600"
+              >
                 Supprimer
               </button>
             </td>
@@ -73,11 +86,6 @@
         </button>
       </div>
   
-      <!-- Message de succès -->
-      <div v-if="successMessage" class="fixed top-4 right-4 p-4 bg-green-500 text-white rounded-lg shadow-lg">
-        {{ successMessage }}
-      </div>
-  
       <!-- Modal d'ajout d'utilisateur -->
       <div v-if="modalUserOuvert" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
@@ -95,14 +103,44 @@
               <label class="block text-sm font-medium text-gray-700">Email</label>
               <input v-model="newUser.email" class="mt-1 block w-full px-3 py-2 border rounded-md" type="email" placeholder="Email" required />
             </div>
-              <input v-model="newUser.password" type="hidden" value="password" />
-  
+            <!-- Champ caché pour le mot de passe -->
+            <input v-model="newUser.password" type="hidden" />
             <div class="flex justify-end">
               <button type="submit" class="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500">
                 Enregistrer
               </button>
               <button type="button" @click="fermerModalUser" class="ml-2 px-4 py-2 font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">
                 Annuler
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <!-- Modal de modification d'utilisateur -->
+      <div v-if="isEditModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+          <h2 class="text-lg font-semibold mb-4">Modifier l'utilisateur</h2>
+          <form @submit.prevent="updateUser">
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700">Nom</label>
+              <input v-model="editForm.name" class="mt-1 block w-full px-3 py-2 border rounded-md" type="text" required />
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700">Prénom</label>
+              <input v-model="editForm.prenom" class="mt-1 block w-full px-3 py-2 border rounded-md" type="text" required />
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700">Email</label>
+              <input v-model="editForm.email" class="mt-1 block w-full px-3 py-2 border rounded-md" type="email" required />
+            </div>
+            <!-- Champ caché pour le mot de passe -->
+            <div class="flex justify-end">
+              <button type="button" @click="closeEditModal" class="ml-2 px-4 py-2 font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">
+                Annuler
+              </button>
+              <button type="submit" class="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500">
+                Enregistrer
               </button>
             </div>
           </form>
@@ -115,8 +153,10 @@
   
   // États réactifs
   const users = ref([]); // Liste des utilisateurs
-  const modalUserOuvert = ref(false); // État du modal
-  const newUser = ref({ name: '', email: '', password: '', prenom: '' }); // Données du nouvel utilisateur
+  const modalUserOuvert = ref(false); // État du modal d'ajout
+  const isEditModalOpen = ref(false); // État du modal de modification
+  const newUser = ref({ name: '', email: '', password: 'password', prenom: '' }); // Données du nouvel utilisateur
+  const editForm = ref({ id: null, name: '', email: '', prenom: '' }); // Données de l'utilisateur à modifier
   const successMessage = ref(''); // Message de succès
   const currentPage = ref(1); // Page actuelle
   const itemsPerPage = ref(5); // Nombre d'éléments par page
@@ -161,22 +201,31 @@
     }
   };
   
-  // Ouvrir le modal
+  // Ouvrir le modal d'ajout
   const openModalUser = () => {
     modalUserOuvert.value = true;
-    console.log("Modal ouvert:", modalUserOuvert.value);
   };
   
-  // Fermer le modal
+  // Fermer le modal d'ajout
   const fermerModalUser = () => {
     modalUserOuvert.value = false;
-    console.log("Modal fermé:", modalUserOuvert.value);
+    newUser.value = { name: '', email: '', password: 'password', prenom: '' }; // Réinitialiser le formulaire
+  };
+  
+  // Ouvrir le modal de modification
+  const openEditModal = (user) => {
+    editForm.value = { ...user, password: 'password' }; // Toujours définir le mot de passe sur "password"
+    isEditModalOpen.value = true;
+  };
+  
+  // Fermer le modal de modification
+  const closeEditModal = () => {
+    isEditModalOpen.value = false;
+    editForm.value = { id: null, name: '', email: '', password: 'password', prenom: '' }; // Réinitialiser le formulaire
   };
   
   // Ajouter un utilisateur
   const addUser = async () => {
-    console.log("Utilisateur ajouté :", newUser.value);
-  
     try {
       const response = await $fetch("/api/auth/register", {
         method: "POST",
@@ -188,13 +237,48 @@
         successMessage.value = "Utilisateur créé avec succès !";
         fetchUsers(); // Recharger la liste des utilisateurs
         fermerModalUser(); // Fermer le modal
-        newUser.value = { name: '', email: '', password: '', prenom: '' }; // Réinitialiser le formulaire
         setTimeout(() => { successMessage.value = ''; }, 3000); // Masquer le message après 3 secondes
       } else {
         console.error("Erreur lors de l'ajout :", response.error);
       }
     } catch (error) {
       console.error("Erreur lors de l'ajout de l'utilisateur :", error);
+    }
+  };
+  
+  // Supprimer un utilisateur
+  const deleteUser = async (userId) => {
+    try {
+      const response = await $fetch(`/api/users/${userId}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.message) {
+        successMessage.value = "Utilisateur supprimé avec succès !";
+        fetchUsers(); // Recharger la liste des utilisateurs
+        setTimeout(() => { successMessage.value = ''; }, 3000); // Masquer le message après 3 secondes
+      }
+    } catch (error) {
+      console.error("Erreur lors de la suppression :", error);
+    }
+  };
+  
+  // Mettre à jour un utilisateur
+  const updateUser = async () => {
+    try {
+      const response = await $fetch(`/api/users/${editForm.value.id}`, {
+        method: 'PUT',
+        body: editForm.value,
+      });
+  
+      if (response.message) {
+        successMessage.value = "Utilisateur mis à jour avec succès !";
+        fetchUsers(); // Recharger la liste des utilisateurs
+        closeEditModal(); // Fermer le modal
+        setTimeout(() => { successMessage.value = ''; }, 3000); // Masquer le message après 3 secondes
+      }
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour :", error);
     }
   };
   
