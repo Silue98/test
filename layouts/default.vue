@@ -47,14 +47,21 @@
           to="/ListInscrit" 
           class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-orange-100 hover:bg-orange-300 hover:text-white">
           <span>📝</span>
-          <span>Liste</span>
+          <span>Liste Inscit</span>
+        </NuxtLink>
+        
+        <NuxtLink 
+          to="/ListInscrit" 
+          class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-orange-100 hover:bg-orange-300 hover:text-white">
+          <span>📚</span>
+          <span>Liste de classe et présence</span>
         </NuxtLink>
 
         <NuxtLink 
-          to="/formulaire" 
+          to="/pagepaiement" 
           class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-orange-100 hover:bg-orange-300 hover:text-white">
-          <span>📄</span>
-          <span>Formulaire</span>
+          <span>💵</span> <!-- Icône de billets de banque pour le paiement -->
+          <span>Paiement</span>
         </NuxtLink>
 
         <NuxtLink 
@@ -81,14 +88,14 @@
         <NuxtLink 
           to="/messages" 
           class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-orange-100 hover:bg-orange-300 hover:text-white">
-          <span>💬</span>
+          <span>👨‍👩‍👧‍👦</span>
           <span>Père</span>
         </NuxtLink>
 
         <NuxtLink 
           to="/notifications" 
           class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-orange-100 hover:bg-orange-300 hover:text-white">
-          <span>🔔</span>
+          <span>👩‍👧‍👦</span>
           <span>Mère</span>
         </NuxtLink>
 
