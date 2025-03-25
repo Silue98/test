@@ -51,7 +51,7 @@
         </NuxtLink>
         
         <NuxtLink 
-          to="/ListInscrit" 
+          to="/listclass" 
           class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-orange-100 hover:bg-orange-300 hover:text-white">
           <span>📚</span>
           <span>Liste de classe et présence</span>
@@ -89,15 +89,10 @@
           to="/messages" 
           class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-orange-100 hover:bg-orange-300 hover:text-white">
           <span>👨‍👩‍👧‍👦</span>
-          <span>Père</span>
+          <span>Parents</span>
         </NuxtLink>
 
-        <NuxtLink 
-          to="/notifications" 
-          class="flex items-center space-x-3 rounded-lg px-5 py-3 text-lg font-medium transition duration-300 bg-orange-100 hover:bg-orange-300 hover:text-white">
-          <span>👩‍👧‍👦</span>
-          <span>Mère</span>
-        </NuxtLink>
+        
 
         <NuxtLink 
           to="/"

@@ -16,16 +16,6 @@ export default defineEventHandler(async (event) => {
           classe:classe
          // totatpayement://<<Fabrice has commented this line 08_07_24
       }
-        // data:{
-          
-        //   nomenfant:nomenfant,
-        //   prenomenfant:prenomenfant,
-        //   Id_Enfant:6 ,
-        //   Id_classe:6,
-        //   dateinscription:'1970-01-01T00:00:00.000Z'
-
-          
-        // }
         
         
       })

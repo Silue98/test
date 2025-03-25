@@ -40,7 +40,7 @@
         <tbody class="bg-white divide-y divide-gray-200">
           <tr v-for="user in paginatedUsers" :key="user.id">
             <td class="px-6 py-4">{{ user.id }}</td>
-            <td class="px-6 py-4">{{ user.nom }}</td>
+            <td class="px-6 py-4">{{ user.name }}</td>
             <td class="px-6 py-4">{{ user.prenom }}</td>
             <td class="px-6 py-4">{{ user.email }}</td>
             <td class="px-6 py-4 whitespace-nowrap">

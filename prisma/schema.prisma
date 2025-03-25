@@ -13,19 +13,7 @@ model absencepresence {
   statutappel        String? @db.VarChar(10)
 }
 
-model classe {
-  Id_classe      Int     @id @default(autoincrement()) // Clé primaire
-  nomclass       String? @db.VarChar(50)
-  delclass       String? @db.VarChar(50)
-  moniprincipal  String? @db.VarChar(50)
 
-  utilisateur    Utilisateur? @relation(fields: [utilisateurId], references: [id]) // Relation 1-1
-  utilisateurId  Int?   @unique // Clé étrangère
-
-  enfants        enfant[] // Relation avec enfant
-
-  @@index([utilisateurId], map: "idx_utilisateurId") // Ajout d'un index sur la clé étrangère
-}
 
 
 
@@ -59,12 +47,30 @@ model incription {
   Id_Incription    Int     @id @default(autoincrement())
   nomenfant        String? @db.VarChar(50)
   prenomenfant     String? @db.VarChar(50)
-  classe           String? @db.VarChar(50)
-  Id_classe        Int
   Id_Enfant        Int     @unique(map: "Id_Enfant")
   dateinscription  String? @db.VarChar(50)
+  Id_classe        Int     // Clé étrangère vers `classe`
 
-  @@index([Id_classe], map: "Id_classe")
+  // Relation avec `classe` (chaque inscription appartient à une seule classe)
+  classe           classe  @relation(fields: [Id_classe], references: [Id_classe]) 
+
+  @@index([Id_classe], map: "Id_classe") // Index pour optimiser les requêtes
+}
+model classe {
+  Id_classe      Int     @id @default(autoincrement()) // Clé primaire
+  nomclass       String? @db.VarChar(50)
+  delclass       String? @db.VarChar(50)
+  moniprincipal  String? @db.VarChar(50)
+
+  utilisateur    Utilisateur? @relation(fields: [utilisateurId], references: [id]) // Relation 1-1
+  utilisateurId  Int?   @unique // Clé étrangère
+
+  enfants        enfant[] // Relation avec enfant
+
+  // Relation One-to-Many : Une classe peut avoir plusieurs inscriptions
+  inscriptions   incription[]
+
+  @@index([utilisateurId], map: "idx_utilisateurId") // Ajout d'un index sur la clé étrangère
 }
 
 model mere {
