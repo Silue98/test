@@ -27,7 +27,7 @@
         <tr v-for="insc in inscription" :key="insc.Id_Incription">
           <td>{{ insc.Id_Incription || 'Nom indisponible' }}</td>
           <td>{{ insc.nomenfant || 'Nom indisponible' }}</td>
-          <td class="px-6 py-4 whitespace-nowrap">{{ insc.prenom || 'indisponible' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ insc.prenomenfant || 'indisponible' }}</td>
           <td class="px-6 py-4 whitespace-nowrap">{{ insc.dateNaissance || 'indisponible' }}</td>
           <td class="px-6 py-4 whitespace-nowrap">{{ insc.dateinscription || 'indisponible' }}</td>
           <td class="px-6 py-4 whitespace-nowrap">

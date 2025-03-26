@@ -15,8 +15,8 @@
           class="border p-3 rounded w-64"
         />
   
-        <button class="bg-blue-500 text-white px-5 py-3 rounded hover:bg-blue-600" @click="fetchInscriptions">
-          📋 Afficher les inscriptions
+        <button class="bg-blue-500 text-white px-5 py-3 rounded hover:bg-blue-600" @click="goAppel">
+          📋 Faire appel
         </button>
       </div>
   
@@ -61,7 +61,14 @@
   const classes = ref([]);
   const selectedClasse = ref("");
   const searchQuery = ref("");
+  const router = useRouter();
+
   
+  const goAppel = () => {
+  // Redirection vers la route /appel avec un paramètre optionnel
+  console.log("Redirection vers la page d'appel");
+  router.push({ path: "/Appel" });
+  };
   // Fonction pour récupérer les classes depuis l'API
   const fetchClasses = async () => {
     try {
